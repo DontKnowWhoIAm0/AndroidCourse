@@ -5,58 +5,53 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
-class MainActivity : ComponentActivity() {
+class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MainActivityController.activeInstances.add(this)
         enableEdgeToEdge()
+
+        val text = intent.getStringExtra("text") ?: ""
+
         setContent {
-            FirstScreen()
+            SecondScreen(text)
         }
     }
 
     @Composable
-    fun FirstScreen() {
-        val text = remember { mutableStateOf("") }
+    fun SecondScreen(text: String) {
+        val text = remember { mutableStateOf(text) }
         val context = this
 
         Column(
             modifier = Modifier.fillMaxSize().padding(16.dp),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
-            TextField(
-                value = text.value,
-                onValueChange = { input -> text.value = input },
-                label = { Text("Введите текст")},
-                modifier = Modifier.fillMaxWidth()
+            Text(
+                text = if (text.value == "") "Экран 2" else text.value,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontSize = 30.sp
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-
-            Button(
-                onClick = {
-                    val intent = Intent(context, SecondActivity::class.java)
-                    if (text.value.isNotBlank()) {
-                        intent.putExtra("text", text.value)
-                    }
-                    context.startActivity(intent)
-                },
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
-            ) {
-                Text("На второй экран")
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
 
             Button(
                 onClick = {
@@ -70,7 +65,19 @@ class MainActivity : ComponentActivity() {
             ) {
                 Text("На третий экран")
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = {
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent)
+                },
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+            ) {
+                Text("На первый экран")
+            }
         }
     }
-}
 
+}
