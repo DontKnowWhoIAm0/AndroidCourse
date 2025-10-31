@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">AndroidCourse</string>
+    <string name="app_name">SecondHomework</string>
+    <string name="blankError">Заполните все поля!</string>
+    <string name="emailError">Введен некорректный адрес почты!</string>
+    <string name="passwordError">Слишком короткий пароль!</string>
+    <string name="visibilityOffDesc">Скрыть пароль</string>
+    <string name="visibilityOnDesc">Показать пароль</string>
+    <string name="login">Войти</string>
+    <string name="theme">Выбрать цветовую схему</string>
+    <string name="addNote">Добавить заметку</string>
+    <string name="noNotes">Добавьте первую заметку!</string>
+    <string name="blankTitle">Введите название заметки!</string>
+    <string name="emailLabel">Введите свой email</string>
+    <string name="passwordLabel">Введите пароль</string>
+    <string name="titleLabel">Название заметки</string>
+    <string name="textLabel">Содержание заметки</string>
+    <string name="saveNote">Сохранить заметку</string>
+    <string name="editNote">Сохранить изменения</string>
+    <string name="dropdownButton">Выберите цветовую палитру</string>
+    <string name="editButton">Отредактировать заметку</string>
+    <string name="deleteButton">Удалить заметку</string>
 </resources>
