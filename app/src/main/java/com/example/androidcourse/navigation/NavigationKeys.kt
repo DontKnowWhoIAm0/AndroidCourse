@@ -7,4 +7,8 @@ object NavigationKeys {
     const val REPLY = "reply"
     const val ID = "id"
 
+    const val NOTIFICATION_PAGE = "notification_page"
+    const val EDITING_PAGE = "editing_page"
+    const val MESSAGES_PAGE = "messages_page"
+
 }

@@ -9,7 +9,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.androidcourse.ui.screen.NotificationScreen
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
+import androidx.navigation.compose.rememberNavController
+import com.example.androidcourse.navigation.BottomBar
+import com.example.androidcourse.navigation.NavGraph
 
 
 class MainActivity : ComponentActivity() {
@@ -31,8 +37,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         checkNotificationPermission()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            NotificationScreen()
+            val navController = rememberNavController()
+
+            Scaffold(
+                bottomBar = { BottomBar(navController = navController) },
+            ) { innerPadding ->
+                NavGraph(
+                    navController = navController,
+                    innerPadding = innerPadding
+                )
+            }
+
         }
     }
 

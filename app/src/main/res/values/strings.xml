@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">AndroidCourse</string>
+    <string name="first_screen_title">Создание уведомления</string>
+    <string name="second_screen_title">Редактирование уведомления</string>
+    <string name="third_screen_title">Сообщения</string>
     <string name="low_imp">Низкий приоритет</string>
     <string name="medium_imp">Средний приоритет</string>
     <string name="high_imp">Высокий приоритет</string>
-    <string name="max_imp">Максимальный приоритет</string>
+    <string name="urgent_imp">Максимальный приоритет</string>
     <string name="reply_label">Введите ответ</string>
     <string name="reply_button">Ответить</string>
     <string name="title">Название</string>
@@ -14,5 +17,19 @@
     <string name="openMainActivity">Открывать по нажатию?</string>
     <string name="addReplyAction">Добавить быстрый ответ?</string>
     <string name="create">Создать уведомление</string>
+    <string name="id">ID уведомления</string>
+    <string name="new_text">Новый текст</string>
+    <string name="blankIdError">ID не может быть пустым!</string>
+    <string name="notIntIdError">ID должно быть числом!</string>
+    <string name="notification_page">Уведомления</string>
+    <string name="editing_page">Редактирование</string>
+    <string name="edit">Обновить уведомление</string>
+    <string name="delete_all">Удалить все уведомления</string>
+    <string name="toast_msg_editing">Уведомление не найдено</string>
+    <string name="toast_msg_deleting">Уведомлений нет</string>
+    <string name="user_message">Сообщение</string>
+    <string name="blank_message_error">Сообщение не может быть пустым!</string>
+    <string name="add">Добавить сообщение</string>
+    <string name="messages_page">Сообщения</string>
 
 </resources>

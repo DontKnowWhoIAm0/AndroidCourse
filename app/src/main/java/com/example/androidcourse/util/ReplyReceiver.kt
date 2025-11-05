@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.RemoteInput
+import com.example.androidcourse.data.UserMessages
 import com.example.androidcourse.navigation.NavigationKeys
 
 class ReplyReceiver : BroadcastReceiver() {
@@ -14,7 +15,7 @@ class ReplyReceiver : BroadcastReceiver() {
         val notificationId = intent?.getIntExtra(NavigationKeys.ID, -1)
 
         if (!replyText.isNullOrEmpty()) {
-            //UserMessages.addMessage(replyText)
+            UserMessages.addMessage(replyText)
             if (notificationId != null && notificationId != -1) {
                 val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.cancel(notificationId)

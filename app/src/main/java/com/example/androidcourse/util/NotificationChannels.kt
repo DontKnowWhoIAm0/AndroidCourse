@@ -12,11 +12,13 @@ object NotificationChannels {
     private val channels = mutableSetOf<String>()
 
     fun getChannelId(importance: Importance, context: Context): String {
-        val channelId = importance.getDisplayNameId().toString()
+        val channelId = importance.getChannelId()
 
-        if (!channels.contains(channelId)) {
-            createChannel(importance, channelId, context)
-            channels.add(channelId)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (!channels.contains(channelId)) {
+                createChannel(importance, channelId, context)
+                channels.add(channelId)
+            }
         }
 
         return channelId
@@ -24,16 +26,17 @@ object NotificationChannels {
 
     private fun createChannel(importance: Importance, channelId: String, context: Context) {
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (manager.getNotificationChannel(channelId) == null) {
                 val channelName = when (importance) {
                     Importance.LOW -> context.getString(R.string.low_imp)
                     Importance.MEDIUM -> context.getString(R.string.medium_imp)
                     Importance.HIGH -> context.getString(R.string.high_imp)
-                    Importance.MAX -> context.getString(R.string.max_imp)
+                    Importance.URGENT -> context.getString(R.string.urgent_imp)
                 }
 
-                val importanceLevel = importance.getCompatPriority()
+                val importanceLevel = importance.getImportance()
 
                 val channel = NotificationChannel(
                     channelId,

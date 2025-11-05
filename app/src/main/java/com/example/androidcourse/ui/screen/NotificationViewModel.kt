@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 import com.example.androidcourse.data.Importance
+import com.example.androidcourse.data.UserMessages.addMessage
 
 class NotificationViewModel : ViewModel() {
     var title by mutableStateOf("")
@@ -16,10 +17,13 @@ class NotificationViewModel : ViewModel() {
     var openMainActivity by mutableStateOf(false)
     var replyActionEnabled by mutableStateOf(false)
 
-    var editId by mutableStateOf(0)
+    var editId by mutableStateOf("")
     var editText by mutableStateOf("")
+    var blankIdError by mutableStateOf(0)
+    var notIntIdError by mutableStateOf(0)
 
-    var userMessageInput by mutableStateOf("")
+    var userMessage by mutableStateOf("")
+    var blankMessageError by mutableStateOf(0)
     var userMessages by mutableStateOf(listOf<String>())
 
     fun onTitleChange(newTitle: String) {
@@ -54,8 +58,10 @@ class NotificationViewModel : ViewModel() {
         replyActionEnabled = enabled
     }
 
-    fun onEditIdChange(newId: Int) {
+    fun onEditIdChange(newId: String) {
         editId = newId
+        if (blankIdError != 0) {blankIdError = 0}
+        if (notIntIdError != 0 && newId.toIntOrNull() != null) {notIntIdError = 0}
     }
 
     fun onEditTextChange(newText: String) {
@@ -63,23 +69,14 @@ class NotificationViewModel : ViewModel() {
     }
 
     fun onUserMessageInputChange(newText: String) {
-        userMessageInput = newText
+        userMessage = newText
+        if (blankMessageError != 0) {blankMessageError = 0}
     }
 
-    fun submitUserMessage() {
-        if (userMessageInput.isNotBlank()) {
-            addUserMessage(userMessageInput)
-            userMessageInput = ""
+    fun addUserMessage() {
+        if (userMessage.isNotBlank()) {
+            addMessage(userMessage)
+            userMessage = ""
         }
-    }
-
-    fun addUserMessage(message: String) {
-        userMessages = userMessages + message
-        //UserMessages.addMessage(message)
-    }
-
-    fun clearUserMessages() {
-        userMessages = emptyList()
-        //UserMessages.clearMessages()
     }
 }
