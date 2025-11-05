@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">AndroidCourse</string>
+    <string name="low_imp">Низкий приоритет</string>
+    <string name="medium_imp">Средний приоритет</string>
+    <string name="high_imp">Высокий приоритет</string>
+    <string name="max_imp">Максимальный приоритет</string>
+    <string name="reply_label">Введите ответ</string>
+    <string name="reply_button">Ответить</string>
+    <string name="title">Название</string>
+    <string name="text">Текст</string>
+    <string name="titleError">Название не должно быть пустым!</string>
+    <string name="expandNotification">Раскрывать уведомление?</string>
+    <string name="importance">Выберите приоритет</string>
+    <string name="openMainActivity">Открывать по нажатию?</string>
+    <string name="addReplyAction">Добавить быстрый ответ?</string>
+    <string name="create">Создать уведомление</string>
+
 </resources>
