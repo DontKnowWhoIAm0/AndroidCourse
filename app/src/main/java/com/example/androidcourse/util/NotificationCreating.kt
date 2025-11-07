@@ -17,7 +17,7 @@ fun createNotification(context: Context, notification: Notification) {
     val channelId = NotificationChannels.getChannelId(notification.importance, context)
 
     val builder = NotificationCompat.Builder(context, channelId)
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.outline_notifications_active_24)
         .setContentTitle(notification.title)
         .setContentText(notification.text)
         .setPriority(notification.importance.getPriority())
@@ -32,6 +32,7 @@ fun createNotification(context: Context, notification: Notification) {
             putExtra(NavigationKeys.TITLE, notification.title)
             putExtra(NavigationKeys.TEXT, notification.text)
         }
+
         val pendingIntent = PendingIntent.getActivity(
             context,
             notification.id,
@@ -54,7 +55,7 @@ fun createNotification(context: Context, notification: Notification) {
         )
 
         val replyAction = NotificationCompat.Action.Builder(
-            0,
+            R.drawable.outline_reply_24,
             context.getString(R.string.reply_button),
             replyPendingIntent
         )

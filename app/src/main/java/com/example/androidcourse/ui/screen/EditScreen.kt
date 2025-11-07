@@ -161,8 +161,9 @@ fun EditScreen(
             }
 
             Button(
-                onClick = {
 
+                onClick = {
+                    activeNotifications = notificationManager.activeNotifications.toList()
                     if (activeNotifications.isNotEmpty()) {
                         notificationManager.cancelAll()
                     } else {

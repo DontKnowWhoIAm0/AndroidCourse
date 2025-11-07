@@ -1,7 +1,6 @@
 package com.example.androidcourse.data
 
 import android.app.NotificationManager
-import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.example.androidcourse.R
 
