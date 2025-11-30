@@ -26,6 +26,12 @@ class CoroutineViewModel : ViewModel()  {
     var completed = mutableIntStateOf(0)
         private set
 
+    var failed = mutableIntStateOf(0)
+        private set
+
+    var cancelled = mutableIntStateOf(0)
+        private set
+
     var toastMessage = mutableStateOf<String?>(null)
         private set
 
@@ -66,6 +72,7 @@ class CoroutineViewModel : ViewModel()  {
         if (isRunning.value) return
 
         completed.value = 0
+        failed.value = 0
         isRunning.value = true
 
         currentSettings = settings
@@ -87,13 +94,18 @@ class CoroutineViewModel : ViewModel()  {
                             launchOne(dispatcher)
                         } catch (e: ToastException) {
                             withContext(Dispatchers.Main) {
+                                failed.value++
                                 toastMessage.value = "Ошибка Toast"
                             }
                         } catch (e: SnackbarException) {
                             withContext(Dispatchers.Main) {
+                                failed.value++
                                 showSnackbar.value = true
                             }
                         } catch (e: ResetException) {
+                            withContext(Dispatchers.Main) {
+                                failed.value++
+                            }
                             resetToDefaults()
                         }
                     }
@@ -104,13 +116,18 @@ class CoroutineViewModel : ViewModel()  {
                                 doWork(dispatcher)
                             } catch (e: ToastException) {
                                 withContext(Dispatchers.Main) {
+                                    failed.value++
                                     toastMessage.value = "Ошибка Toast"
                                 }
                             } catch (e: SnackbarException) {
                                 withContext(Dispatchers.Main) {
+                                    failed.value++
                                     showSnackbar.value = true
                                 }
                             } catch (e: ResetException) {
+                                withContext(Dispatchers.Main) {
+                                    failed.value++
+                                }
                                 resetToDefaults()
                             }
                         }
@@ -128,6 +145,13 @@ class CoroutineViewModel : ViewModel()  {
 
     fun onCancelClicked() {
         parentJob?.cancel()
+
+        viewModelScope.launch(Dispatchers.Main) {
+            parentJob?.join()
+            cancelled.value = (currentSettings?.count ?: 0) - failed.value - completed.value
+            toastMessage.value = "Отменено корутин: ${cancelled.value}"
+            isRunning.value = false
+        }
     }
 
     private suspend fun launchOne(dispatcher: CoroutineDispatcher) {
@@ -138,7 +162,7 @@ class CoroutineViewModel : ViewModel()  {
 
     private suspend fun doWork(dispatcher: CoroutineDispatcher) {
         val delayTime = Random.nextLong(1_000L, 10_001L)
-        // Log.d("AAA", "Начало: " + delayTime.toString())
+        Log.d("AAA", "Начало: " + delayTime.toString())
         delay(delayTime)
 
         if (delayTime >= 7000 && Random.nextFloat() < 0.3f) {
@@ -149,7 +173,7 @@ class CoroutineViewModel : ViewModel()  {
             }
         }
 
-        // Log.d("AAA", "Конец: " + delayTime.toString())
+        Log.d("AAA", "Конец: " + delayTime.toString())
         withContext(Dispatchers.Main) {
             completed.value++
         }
