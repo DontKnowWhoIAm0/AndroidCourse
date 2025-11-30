@@ -1,6 +1,5 @@
 package com.example.androidcourse.ui.screen
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -137,6 +136,18 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                         onCheckedChange = { viewModel.onDelayedToggle(it) }
                     )
                 }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("Работа в бэкграунде")
+                    Switch(
+                        checked = settings.runInBackground,
+                        onCheckedChange = { viewModel.onRunInBackgroundToggle(it) }
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.weight(1f))
@@ -160,7 +171,6 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                         modifier = Modifier.fillMaxWidth()
                     )
                     Text("Выполнено: $completed / ${runSettings.count}")
-                    // Log.d("AAA", completed.toString())
                     Button(
                         onClick = { viewModel.onCancelClicked() },
                         modifier = Modifier.fillMaxWidth()

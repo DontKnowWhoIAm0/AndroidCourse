@@ -1,6 +1,5 @@
 package com.example.androidcourse.ui.screen
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -32,10 +31,16 @@ class CoroutineViewModel : ViewModel()  {
     var cancelled = mutableIntStateOf(0)
         private set
 
+    private var stoppedInBackground = 0
+    private var stoppedSettings: CoroutineSettings? = null
+
     var toastMessage = mutableStateOf<String?>(null)
         private set
 
     var showSnackbar = mutableStateOf(false)
+
+    var runInBackground by mutableStateOf(true)
+        private set
 
     var currentSettings: CoroutineSettings? = null
 
@@ -68,14 +73,19 @@ class CoroutineViewModel : ViewModel()  {
         settings = settings.copy(delayedStart = value)
     }
 
-    fun onStartClicked() {
+    fun onRunInBackgroundToggle(value: Boolean) {
+        settings = settings.copy(runInBackground = value)
+        runInBackground = value
+    }
+
+    fun onStartClicked(settingsToUse: CoroutineSettings? = null) {
         if (isRunning.value) return
 
         completed.value = 0
         failed.value = 0
         isRunning.value = true
 
-        currentSettings = settings
+        currentSettings = settingsToUse ?: settings
         val dispatcher = when (currentSettings!!.dispatcher) {
             DispatcherType.DEFAULT -> Dispatchers.Default
             DispatcherType.IO -> Dispatchers.IO
@@ -113,7 +123,7 @@ class CoroutineViewModel : ViewModel()  {
                     val jobs = List(currentSettings!!.count) {
                         launch(dispatcher) {
                             try {
-                                doWork(dispatcher)
+                                doWork()
                             } catch (e: ToastException) {
                                 withContext(Dispatchers.Main) {
                                     failed.value++
@@ -156,13 +166,12 @@ class CoroutineViewModel : ViewModel()  {
 
     private suspend fun launchOne(dispatcher: CoroutineDispatcher) {
         withContext(dispatcher) {
-            doWork(dispatcher)
+            doWork()
         }
     }
 
-    private suspend fun doWork(dispatcher: CoroutineDispatcher) {
+    private suspend fun doWork() {
         val delayTime = Random.nextLong(1_000L, 10_001L)
-        Log.d("AAA", "Начало: " + delayTime.toString())
         delay(delayTime)
 
         if (delayTime >= 7000 && Random.nextFloat() < 0.3f) {
@@ -173,7 +182,6 @@ class CoroutineViewModel : ViewModel()  {
             }
         }
 
-        Log.d("AAA", "Конец: " + delayTime.toString())
         withContext(Dispatchers.Main) {
             completed.value++
         }
@@ -185,4 +193,32 @@ class CoroutineViewModel : ViewModel()  {
             toastMessage.value = "Настройки сброшены"
         }
     }
+
+    fun stopCoroutinesOnBackground() {
+        if (!isRunning.value) return
+        val remaining = (currentSettings?.count ?: 0) - completed.value - failed.value
+        if (remaining <= 0) return
+
+        stoppedInBackground = remaining
+        stoppedSettings = currentSettings?.copy(count = remaining)
+
+        parentJob?.cancel()
+
+        viewModelScope.launch(Dispatchers.Main) {
+            parentJob?.join()
+            cancelled.value += stoppedInBackground
+            toastMessage.value = "Приложение свернуто. Остановлено корутин: $stoppedInBackground"
+            isRunning.value = false
+        }
+    }
+
+    fun restartStoppedCoroutines() {
+        val settingsToRestart = stoppedSettings ?: return
+
+        stoppedInBackground = 0
+        stoppedSettings = null
+
+        onStartClicked(settingsToRestart)
+    }
+
 }
