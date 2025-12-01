@@ -74,7 +74,6 @@ class CoroutineViewModel : ViewModel()  {
     }
 
     fun onRunInBackgroundToggle(value: Boolean) {
-        settings = settings.copy(runInBackground = value)
         runInBackground = value
     }
 

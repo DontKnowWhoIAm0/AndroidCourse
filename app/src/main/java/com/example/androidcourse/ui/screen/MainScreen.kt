@@ -43,6 +43,7 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
     val settings = viewModel.settings
     val isRunning = viewModel.isRunning.value
     val completed = viewModel.completed.value
+    val runInBackground = viewModel.runInBackground
     val toastMessage = viewModel.toastMessage.value
     val runSettings = viewModel.currentSettings
 
@@ -144,7 +145,7 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                 ) {
                     Text("Работа в бэкграунде")
                     Switch(
-                        checked = settings.runInBackground,
+                        checked = runInBackground,
                         onCheckedChange = { viewModel.onRunInBackgroundToggle(it) }
                     )
                 }

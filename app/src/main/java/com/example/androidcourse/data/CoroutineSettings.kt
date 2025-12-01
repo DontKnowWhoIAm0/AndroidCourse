@@ -5,6 +5,5 @@ data class CoroutineSettings(
     val dispatcher: DispatcherType = DispatcherType.DEFAULT,
     val sequential: Boolean = true,
     val parallel: Boolean = false,
-    val delayedStart: Boolean = false,
-    val runInBackground: Boolean = true
+    val delayedStart: Boolean = false
 )
