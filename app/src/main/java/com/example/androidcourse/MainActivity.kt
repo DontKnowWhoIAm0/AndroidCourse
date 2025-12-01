@@ -16,8 +16,10 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: CoroutineViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.setContext(applicationContext)
         enableEdgeToEdge()
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {

@@ -1,11 +1,13 @@
 package com.example.androidcourse.ui.screen
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidcourse.R
 import com.example.androidcourse.data.CoroutineSettings
 import com.example.androidcourse.data.DispatcherType
 import com.example.androidcourse.data.ResetException
@@ -15,6 +17,12 @@ import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class CoroutineViewModel : ViewModel()  {
+
+    private lateinit var appContext: Context
+
+    fun setContext(context: Context) {
+        appContext = context.applicationContext
+    }
 
     var settings by mutableStateOf(CoroutineSettings())
         private set
@@ -104,7 +112,7 @@ class CoroutineViewModel : ViewModel()  {
                         } catch (e: ToastException) {
                             withContext(Dispatchers.Main) {
                                 failed.value++
-                                toastMessage.value = "Ошибка Toast"
+                                toastMessage.value = appContext.getString(R.string.toast_error)
                             }
                         } catch (e: SnackbarException) {
                             withContext(Dispatchers.Main) {
@@ -126,7 +134,7 @@ class CoroutineViewModel : ViewModel()  {
                             } catch (e: ToastException) {
                                 withContext(Dispatchers.Main) {
                                     failed.value++
-                                    toastMessage.value = "Ошибка Toast"
+                                    toastMessage.value = appContext.getString(R.string.toast_error)
                                 }
                             } catch (e: SnackbarException) {
                                 withContext(Dispatchers.Main) {
@@ -158,7 +166,7 @@ class CoroutineViewModel : ViewModel()  {
         viewModelScope.launch(Dispatchers.Main) {
             parentJob?.join()
             cancelled.value = (currentSettings?.count ?: 0) - failed.value - completed.value
-            toastMessage.value = "Отменено корутин: ${cancelled.value}"
+            toastMessage.value = appContext.getString(R.string.cancelled, cancelled.value)
             isRunning.value = false
         }
     }
@@ -189,7 +197,7 @@ class CoroutineViewModel : ViewModel()  {
     private suspend fun resetToDefaults() {
         withContext(Dispatchers.Main) {
             settings = CoroutineSettings()
-            toastMessage.value = "Настройки сброшены"
+            toastMessage.value = appContext.getString(R.string.settings_reset)
         }
     }
 
@@ -206,7 +214,6 @@ class CoroutineViewModel : ViewModel()  {
         viewModelScope.launch(Dispatchers.Main) {
             parentJob?.join()
             cancelled.value += stoppedInBackground
-            toastMessage.value = "Приложение свернуто. Остановлено корутин: $stoppedInBackground"
             isRunning.value = false
         }
     }

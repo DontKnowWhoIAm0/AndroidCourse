@@ -33,8 +33,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.androidcourse.R
 import com.example.androidcourse.data.DispatcherType
 
 @Composable
@@ -58,9 +60,10 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
         }
     }
 
+    val snackbarMessage = stringResource(R.string.snackbar_error)
     LaunchedEffect(viewModel.showSnackbar.value) {
         if (viewModel.showSnackbar.value) {
-            snackbarHostState.showSnackbar("Ошибка Snackbar")
+            snackbarHostState.showSnackbar(snackbarMessage)
             viewModel.showSnackbar.value = false
         }
     }
@@ -82,12 +85,12 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Запуск корутин",
+                    text = stringResource(R.string.start),
                     fontSize = 20.sp,
                     modifier = modifier.align(Alignment.CenterHorizontally)
                 )
 
-                Text("Количество корутин: ${settings.count}")
+                Text(stringResource(R.string.amount, settings.count))
                 Slider(
                     value = settings.count.toFloat(),
                     onValueChange = { viewModel.onCountChange(it.toInt()) },
@@ -107,7 +110,7 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Последовательное выполнение")
+                    Text(stringResource(R.string.seq_setting))
                     Switch(
                         checked = settings.sequential,
                         onCheckedChange = { viewModel.onSequentialToggle(it) }
@@ -119,7 +122,7 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Параллельное выполнение")
+                    Text(stringResource(R.string.par_setting))
                     Switch(
                         checked = settings.parallel,
                         onCheckedChange = { viewModel.onParallelToggle(it) }
@@ -131,7 +134,7 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Отложенный запуск")
+                    Text(stringResource(R.string.delay_setting))
                     Switch(
                         checked = settings.delayedStart,
                         onCheckedChange = { viewModel.onDelayedToggle(it) }
@@ -143,7 +146,7 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Работа в бэкграунде")
+                    Text(stringResource(R.string.background_setting))
                     Switch(
                         checked = runInBackground,
                         onCheckedChange = { viewModel.onRunInBackgroundToggle(it) }
@@ -160,7 +163,7 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)
                 ) {
-                    Text("Запуск")
+                    Text(stringResource(R.string.start))
                 }
             } else {
                 Column(
@@ -171,12 +174,12 @@ fun MainScreen(viewModel: CoroutineViewModel, modifier: Modifier = Modifier) {
                         progress = completed / runSettings!!.count.toFloat(),
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Text("Выполнено: $completed / ${runSettings.count}")
+                    Text(stringResource(R.string.completed) + " " + completed + " / " + runSettings.count)
                     Button(
                         onClick = { viewModel.onCancelClicked() },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Отмена")
+                        Text(stringResource(R.string.cancel))
                     }
                 }
             }
