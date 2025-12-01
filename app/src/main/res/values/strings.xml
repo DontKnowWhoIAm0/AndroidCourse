@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">AndroidCourse</string>
+    <string name="toast_error">Ошибка Toast</string>
+    <string name="snackbar_error">Ошибка SnackBar</string>
+    <string name="cancelled">Отменено корутин: %d</string>
+    <string name="completed">Выполнено корутин:</string>
+    <string name="settings_reset">Настройки сброшены</string>
+    <string name="start">Запуск корутин</string>
+    <string name="cancel">Отмена корутин</string>
+    <string name="amount">Количество корутин: %d</string>
+    <string name="seq_setting">Последовательное выполнение</string>
+    <string name="par_setting">Параллельное выполнение</string>
+    <string name="delay_setting">Отложенное выполнение</string>
+    <string name="background_setting">Выполнение в бекграунде</string>
 </resources>
