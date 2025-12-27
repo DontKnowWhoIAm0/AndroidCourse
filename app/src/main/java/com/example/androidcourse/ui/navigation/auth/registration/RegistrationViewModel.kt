@@ -1,13 +1,17 @@
 package com.example.androidcourse.ui.navigation.auth.registration
 
+import android.app.Application
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidcourse.data.db.AppDatabase
 import com.example.androidcourse.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel(private val userRepository: UserRepository) : ViewModel() {
+class RegistrationViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val userRepository = UserRepository(AppDatabase.getDatabase(application).userDao())
 
     private val _uiState = mutableStateOf(RegistrationUiState())
     val uiState: State<RegistrationUiState> = _uiState

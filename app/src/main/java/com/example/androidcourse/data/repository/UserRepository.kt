@@ -20,7 +20,7 @@ class UserRepository(
             email = email,
             password = password,
             isDeleted = false,
-            deleteDate = Date()
+            deleteDate = Date().time
         )
 
         userDao.insert(user)

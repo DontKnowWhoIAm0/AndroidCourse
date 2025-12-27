@@ -16,17 +16,18 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = if (isUserLoggedIn)
-            NavigationKeys.CATALOG
-        else
-            NavigationKeys.LOGIN,
+//        startDestination = if (isUserLoggedIn)
+//            NavigationKeys.CATALOG
+//        else
+//            NavigationKeys.LOGIN,
+        startDestination = NavigationKeys.REGISTRATION,
         modifier = Modifier
     ) {
-        composable(NavigationKeys.LOGIN) {
-            LoginScreen(
-                navController = navController,
-                innerPadding = innerPadding)
-        }
+//        composable(NavigationKeys.LOGIN) {
+//            LoginScreen(
+//                navController = navController,
+//                innerPadding = innerPadding)
+//        }
 
         composable(NavigationKeys.REGISTRATION) {
             RegistrationScreen(
@@ -34,22 +35,22 @@ fun NavGraph(
                 innerPadding = innerPadding)
         }
 
-        composable(NavigationKeys.CATALOG) {
-            CatalogScreen(
-                navController = navController,
-                innerPadding = innerPadding)
-        }
-
-        composable(NavigationKeys.ADD_YARN) {
-            AddScreen(
-                navController = navController,
-                innerPadding = innerPadding)
-        }
-
-        composable(NavigationKeys.PROFILE) {
-            ProfileScreen(
-                navController = navController,
-                innerPadding = innerPadding)
-        }
+//        composable(NavigationKeys.CATALOG) {
+//            CatalogScreen(
+//                navController = navController,
+//                innerPadding = innerPadding)
+//        }
+//
+//        composable(NavigationKeys.ADD_YARN) {
+//            AddScreen(
+//                navController = navController,
+//                innerPadding = innerPadding)
+//        }
+//
+//        composable(NavigationKeys.PROFILE) {
+//            ProfileScreen(
+//                navController = navController,
+//                innerPadding = innerPadding)
+//        }
     }
 }
