@@ -6,18 +6,17 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.androidcourse.data.entity.UserEntity
-import com.example.androidcourse.data.entity.YarnEntity
 
 @Dao
 interface UserDao {
     @Insert
-    suspend fun insert(yarn: YarnEntity)
+    suspend fun insert(user: UserEntity)
 
     @Update
-    suspend fun update(yarn: YarnEntity)
+    suspend fun update(user: UserEntity)
 
     @Delete
-    suspend fun delete(yarn: YarnEntity)
+    suspend fun delete(user: UserEntity)
 
     @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
     suspend fun getUserByEmail(email: String): UserEntity?
