@@ -1,6 +1,7 @@
 package com.example.androidcourse.ui.navigation.auth.registration
 
 import android.app.Application
+import android.util.Patterns
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
@@ -16,6 +17,10 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private val _uiState = mutableStateOf(RegistrationUiState())
     val uiState: State<RegistrationUiState> = _uiState
 
+    val isRegisterEnabled: Boolean
+        get() = _uiState.value.email.isNotBlank() && _uiState.value.password.isNotBlank() &&
+                _uiState.value.error == null && !_uiState.value.isLoading
+
     fun onEmailChange(value: String) {
         _uiState.value = _uiState.value.copy(email = value, error = null)
     }
@@ -29,6 +34,11 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
 
         if (state.email.isBlank() || state.password.isBlank()) {
             _uiState.value = state.copy(error = "Все поля обязательны")
+            return
+        }
+
+        if (!isEmailValid(state.email)) {
+            _uiState.value = state.copy(error = "Неверный формат email")
             return
         }
 
@@ -49,5 +59,9 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
                 )
             }
         }
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

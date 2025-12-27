@@ -40,6 +40,8 @@ fun RegistrationScreen(
     val state by viewModel.uiState
     var passwordVisible by remember { mutableStateOf(false) }
 
+
+
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
             navController.navigate(NavigationKeys.LOGIN) {
@@ -99,7 +101,7 @@ fun RegistrationScreen(
 
         Button(
             onClick = viewModel::registration,
-            enabled = !state.isLoading,
+            enabled = viewModel.isRegisterEnabled,
             modifier = Modifier.fillMaxWidth()
         ) {
             if (state.isLoading) {
