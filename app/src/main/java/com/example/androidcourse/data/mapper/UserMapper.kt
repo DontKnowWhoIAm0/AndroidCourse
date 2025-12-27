@@ -12,10 +12,11 @@ fun UserEntity.toModel(): User = User(
     deleteDate = Date(deleteDate)
 )
 
-fun User.toEntity(): UserEntity = UserEntity(
+fun User.toEntity(salt: String): UserEntity = UserEntity(
     id = id,
     email = email,
     password = password,
+    salt = salt,
     isDeleted = isDeleted,
     deleteDate = deleteDate.time
 )

@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidcourse.data.db.AppDatabase
 import com.example.androidcourse.data.repository.UserRepository
+import com.example.androidcourse.utils.PasswordHasher
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel(application: Application) : AndroidViewModel(application) {
@@ -45,9 +46,13 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
         viewModelScope.launch {
             _uiState.value = state.copy(isLoading = true)
 
+            val salt = PasswordHasher.generateSalt()
+            val hashedPassword = PasswordHasher.hash(state.password, salt)
+
             val result = userRepository.registration(
                 email = state.email,
-                password = state.password
+                password = hashedPassword,
+                salt = salt
             )
 
             _uiState.value = if (result.isSuccess) {

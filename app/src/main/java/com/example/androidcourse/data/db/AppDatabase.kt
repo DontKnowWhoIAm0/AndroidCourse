@@ -9,7 +9,7 @@ import com.example.androidcourse.data.dao.YarnDao
 import com.example.androidcourse.data.entity.YarnEntity
 import com.example.androidcourse.data.entity.UserEntity
 
-@Database(entities = [YarnEntity::class, UserEntity::class], version = 1)
+@Database(entities = [YarnEntity::class, UserEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun yarnDao(): YarnDao
     abstract fun userDao(): UserDao
@@ -24,7 +24,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
