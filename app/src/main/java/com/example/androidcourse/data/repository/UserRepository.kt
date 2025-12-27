@@ -8,7 +8,7 @@ class UserRepository(
     private val userDao: UserDao
 ) {
 
-    suspend fun register(
+    suspend fun registration(
         email: String,
         password: String
     ): Result<Unit> {
