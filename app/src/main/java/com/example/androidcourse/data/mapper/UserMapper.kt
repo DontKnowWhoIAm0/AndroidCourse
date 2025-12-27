@@ -9,7 +9,7 @@ fun UserEntity.toModel(): User = User(
     email = email,
     password = password,
     isDeleted = isDeleted,
-    deleteDate = Date(deleteDate)
+    deleteDate = deleteDate?.let { Date(it) }
 )
 
 fun User.toEntity(salt: String): UserEntity = UserEntity(
@@ -18,5 +18,5 @@ fun User.toEntity(salt: String): UserEntity = UserEntity(
     password = password,
     salt = salt,
     isDeleted = isDeleted,
-    deleteDate = deleteDate.time
+    deleteDate = deleteDate?.time
 )

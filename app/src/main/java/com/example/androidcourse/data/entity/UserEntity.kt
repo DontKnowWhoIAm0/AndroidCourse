@@ -9,6 +9,6 @@ data class UserEntity(
     val email: String,
     val password: String,
     val salt: String,
-    val isDeleted: Boolean,
-    val deleteDate: Long
+    val isDeleted: Boolean = false,
+    val deleteDate: Long? = null
 )
