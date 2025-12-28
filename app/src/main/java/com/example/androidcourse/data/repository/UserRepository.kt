@@ -11,7 +11,7 @@ class UserRepository(
 
     suspend fun registration(email: String, password: String, salt: String): Result<Unit> {
         if (userDao.isEmailExists(email) > 0) {
-            return Result.failure(Exception("Email already exists"))
+            return Result.failure(Exception("Аккаунт с таким email уже существует!"))
         }
 
         val user = UserEntity(
@@ -49,7 +49,7 @@ class UserRepository(
         return userDao.getUserByEmail(email)
     }
 
-    suspend fun observeUsers(): Flow<List<UserEntity>> {
+    fun observeUsers(): Flow<List<UserEntity>> {
         return userDao.observeUsers()
     }
 }

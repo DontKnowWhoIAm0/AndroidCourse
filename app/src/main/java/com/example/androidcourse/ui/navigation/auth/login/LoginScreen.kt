@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -31,6 +34,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 
 @Composable
 fun LoginScreen(
@@ -40,6 +46,7 @@ fun LoginScreen(
 ) {
     val state by viewModel.uiState
     var passwordVisible by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
@@ -50,12 +57,13 @@ fun LoginScreen(
         }
     }
 
-    Box (modifier = Modifier.padding(innerPadding).fillMaxWidth()) {
+    Box (modifier = Modifier.padding(innerPadding).fillMaxWidth().imePadding()) {
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "Вход",
@@ -69,6 +77,8 @@ fun LoginScreen(
                 singleLine = true,
                 isError = state.error != null,
                 enabled = !state.isLoading,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) })
             )
 
             OutlinedTextField(
@@ -92,6 +102,8 @@ fun LoginScreen(
                 },
                 isError = state.error != null,
                 enabled = !state.isLoading,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
             )
 
             state.error?.let {
@@ -102,7 +114,10 @@ fun LoginScreen(
             }
 
             Button(
-                onClick = viewModel::login,
+                onClick = {
+                    focusManager.clearFocus()
+                    viewModel.login()
+                },
                 enabled = viewModel.isLoginEnabled && !state.isLoading,
                 modifier = Modifier.fillMaxWidth()
             ) {
