@@ -9,7 +9,7 @@ import com.example.androidcourse.data.dao.YarnDao
 import com.example.androidcourse.data.entity.YarnEntity
 import com.example.androidcourse.data.entity.UserEntity
 
-@Database(entities = [YarnEntity::class, UserEntity::class], version = 5)
+@Database(entities = [YarnEntity::class, UserEntity::class], version = 6)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun yarnDao(): YarnDao
     abstract fun userDao(): UserDao

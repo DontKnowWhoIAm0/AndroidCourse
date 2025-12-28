@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.androidcourse.ui.navigation.auth.login.LoginScreen
 import com.example.androidcourse.ui.navigation.auth.registration.RegistrationScreen
+import com.example.androidcourse.ui.navigation.yarn.add.AddYarnScreen
 import com.example.androidcourse.ui.navigation.yarn.catalog.CatalogScreen
 
 @Composable
@@ -42,13 +43,13 @@ fun NavGraph(
                 navController = navController,
                 innerPadding = innerPadding)
         }
-//
-//        composable(NavigationKeys.ADD_YARN) {
-//            AddScreen(
-//                navController = navController,
-//                innerPadding = innerPadding)
-//        }
-//
+
+        composable(NavigationKeys.ADD_YARN) {
+            AddYarnScreen(
+                navController = navController,
+                innerPadding = innerPadding)
+        }
+
 //        composable(NavigationKeys.PROFILE) {
 //            ProfileScreen(
 //                navController = navController,
