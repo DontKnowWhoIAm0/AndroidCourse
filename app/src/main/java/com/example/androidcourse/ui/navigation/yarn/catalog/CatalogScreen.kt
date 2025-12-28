@@ -1,6 +1,7 @@
 package com.example.androidcourse.ui.navigation.yarn.catalog
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,16 +11,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,10 +39,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.androidcourse.ui.navigation.graph.NavigationKeys
 import com.example.androidcourse.ui.navigation.yarn.catalog.sort.SortBottomSheet
+import com.example.androidcourse.ui.navigation.yarn.catalog.sort.SortOption
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,21 +64,13 @@ fun CatalogScreen(
             TopAppBar(
                 title = { Text("Каталог пряжи") },
                 actions = {
-                    Row {
-                        FilterChip(
-                            selected = true,
-                            onClick = { showSortSheet = true },
-                            label = {
-                                Text(
-                                    text = uiState.sortOption.name
-                                        .replace("_", " ")
-                                        .replace("ASC", "↑")
-                                        .replace("DESC", "↓")
-                                )
-                            },
-
-                            leadingIcon = { Icon(Icons.Default.Sort,  contentDescription = "Сортировать список пряжи") },
-                            modifier = Modifier.padding(end = 8.dp)
+                    IconButton(
+                        onClick = { navController.navigate(NavigationKeys.PROFILE) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.AccountCircle,
+                            contentDescription = "В профиль",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -82,8 +78,45 @@ fun CatalogScreen(
         },
 
         floatingActionButton = {
-            FloatingActionButton(onClick = { navController.navigate(NavigationKeys.ADD_YARN) }) {
-                Icon(Icons.Default.Add, "Добавить пряжу")
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalAlignment = Alignment.End
+            ) {
+
+                FloatingActionButton(
+                    onClick = { showSortSheet = true },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    modifier = Modifier.size(64.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        if (uiState.sortOption == SortOption.NONE) {
+                            Icon(
+                                Icons.Default.Sort,
+                                contentDescription = "Сортировать список пряжи",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        } else {
+                            Text(
+                                text = uiState.sortOption.name
+                                    .replace("_", " ")
+                                    .replace("ASC", "↑")
+                                    .replace("DESC", "↓"),
+                                fontSize = 10.sp
+                            )
+                        }
+                    }
+                }
+
+                FloatingActionButton(
+                    onClick = { navController.navigate(NavigationKeys.ADD_YARN) },
+                    modifier = Modifier.size(64.dp)
+                ) {
+                    Icon(Icons.Default.Add, "Добавить пряжу")
+                }
             }
         }
     ) { padding ->
