@@ -30,17 +30,22 @@ class UserRepository(
         return Result.success(Unit)
     }
 
-    suspend fun login(
-        email: String,
-        password: String
-    ): Result<UserEntity> {
-        val user = userDao.getUserByEmail(email) ?: return Result.failure(Exception("User not found"))
-        val hashedInput = PasswordHasher.hash(password, user.salt)
-
-        return if (hashedInput == user.password) {
-            Result.success(user)
-        } else {
-            Result.failure(Exception("Wrong password"))
+    suspend fun login(email: String, password: String): Result<Boolean> {
+        return try {
+            val userEntity = userDao.getUserByEmail(email)
+            if (userEntity != null) {
+                val salt = userEntity.salt
+                val hashedInputPassword = PasswordHasher.hash(password, salt)
+                if (hashedInputPassword == userEntity.password) {
+                    Result.success(true)
+                } else {
+                    Result.failure(Exception("Неверный пароль"))
+                }
+            } else {
+                Result.failure(Exception("Пользователь не найден"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 }

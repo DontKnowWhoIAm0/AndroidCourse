@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.androidcourse.ui.navigation.auth.login.LoginScreen
 import com.example.androidcourse.ui.navigation.auth.registration.RegistrationScreen
 
 @Composable
@@ -23,11 +24,11 @@ fun NavGraph(
         startDestination = NavigationKeys.REGISTRATION,
         modifier = Modifier
     ) {
-//        composable(NavigationKeys.LOGIN) {
-//            LoginScreen(
-//                navController = navController,
-//                innerPadding = innerPadding)
-//        }
+        composable(NavigationKeys.LOGIN) {
+            LoginScreen(
+                navController = navController,
+                innerPadding = innerPadding)
+        }
 
         composable(NavigationKeys.REGISTRATION) {
             RegistrationScreen(
