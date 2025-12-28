@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.androidcourse.data.entity.UserEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
@@ -23,4 +24,7 @@ interface UserDao {
 
     @Query("SELECT COUNT(*) FROM users WHERE email = :email")
     suspend fun isEmailExists(email: String): Int
+
+    @Query("SELECT * FROM users")
+    fun observeUsers(): Flow<List<UserEntity>>
 }

@@ -3,7 +3,7 @@ package com.example.androidcourse.data.repository
 import com.example.androidcourse.data.dao.UserDao
 import com.example.androidcourse.data.entity.UserEntity
 import com.example.androidcourse.utils.PasswordHasher
-import java.util.Date
+import kotlinx.coroutines.flow.Flow
 
 class UserRepository(
     private val userDao: UserDao
@@ -47,5 +47,9 @@ class UserRepository(
 
     suspend fun getUserByEmail(email: String): UserEntity? {
         return userDao.getUserByEmail(email)
+    }
+
+    suspend fun observeUsers(): Flow<List<UserEntity>> {
+        return userDao.observeUsers()
     }
 }

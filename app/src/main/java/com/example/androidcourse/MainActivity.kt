@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     NavGraph(
                         navController = navController,
                         innerPadding = innerPadding,
-                        isUserLoggedIn = isUserLoggedIn
+                        isUserLoggedIn = false //isUserLoggedIn
                     )
                 }
             }

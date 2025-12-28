@@ -18,10 +18,11 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = if (isUserLoggedIn)
-            NavigationKeys.CATALOG
-        else
-            NavigationKeys.LOGIN,
+//        startDestination = if (isUserLoggedIn)
+//            NavigationKeys.CATALOG
+//        else
+//            NavigationKeys.LOGIN,
+        startDestination = NavigationKeys.LOGIN,
         modifier = Modifier
     ) {
         composable(NavigationKeys.LOGIN) {

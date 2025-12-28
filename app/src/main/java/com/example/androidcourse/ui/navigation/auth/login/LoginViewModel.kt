@@ -9,12 +9,21 @@ import androidx.lifecycle.viewModelScope
 import com.example.androidcourse.data.db.AppDatabase
 import com.example.androidcourse.data.repository.UserRepository
 import com.example.androidcourse.utils.AuthManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val userRepository = UserRepository(AppDatabase.getDatabase(application).userDao())
     private val authManager = AuthManager(application)
+
+    // Для того, чтобы бд была открыта всегда
+    init {
+        viewModelScope.launch {
+            userRepository.observeUsers().collect {
+            }
+        }
+    }
 
     private val _uiState = mutableStateOf(LoginUiState())
     val uiState: State<LoginUiState> = _uiState
@@ -49,11 +58,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
             val result = userRepository.login(state.email, state.password)
 
+            delay(500)
+
             if (result.isSuccess) {
                 val user = userRepository.getUserByEmail(state.email)
-                user?.let {
-                    authManager.saveSession(state.email, it.id)
-                }
+//                user?.let {
+//                    authManager.saveSession(state.email, it.id)
+//                }
                 _uiState.value = state.copy(isLoading = false, isSuccess = true)
             } else {
                 _uiState.value = state.copy(
