@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AndroidCourse</string>
+    <string name="sort_none">Без сортировки</string>
+    <string name="sort_brand_asc">Бренд A–Я</string>
+    <string name="sort_brand_desc">Бренд Я–A</string>
+    <string name="sort_weight_asc">Вес ↑</string>
+    <string name="sort_weight_desc">Вес ↓</string>
+    <string name="sort_length_asc">Длина ↑</string>
+    <string name="sort_length_desc">Длина ↓</string>
 </resources>

@@ -38,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -99,10 +100,7 @@ fun CatalogScreen(
                             )
                         } else {
                             Text(
-                                text = uiState.sortOption.name
-                                    .replace("_", " ")
-                                    .replace("ASC", "↑")
-                                    .replace("DESC", "↓"),
+                                text = stringResource(uiState.sortOption.titleRes),
                                 fontSize = 10.sp
                             )
                         }

@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +35,7 @@ fun SortBottomSheet(
 
             SortOption.values().filter { it != uiState.sortOption }.forEach { option ->
                 ListItem(
-                    headlineContent = {Text(option.name.replace("_", " "))},
+                    headlineContent = { Text(stringResource(option.titleRes)) },
                     modifier = Modifier.clickable {
                         onSortSelected(option)
                         onDismiss()
