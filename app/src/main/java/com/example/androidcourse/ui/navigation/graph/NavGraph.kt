@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.androidcourse.ui.navigation.auth.login.LoginScreen
 import com.example.androidcourse.ui.navigation.auth.registration.RegistrationScreen
+import com.example.androidcourse.ui.navigation.profile.ProfileScreen
 import com.example.androidcourse.ui.navigation.yarn.add.AddYarnScreen
 import com.example.androidcourse.ui.navigation.yarn.catalog.CatalogScreen
 
@@ -23,7 +24,6 @@ fun NavGraph(
             NavigationKeys.CATALOG
         else
             NavigationKeys.LOGIN,
-//        startDestination = NavigationKeys.LOGIN,
         modifier = Modifier
     ) {
         composable(NavigationKeys.LOGIN) {
@@ -50,10 +50,10 @@ fun NavGraph(
                 innerPadding = innerPadding)
         }
 
-//        composable(NavigationKeys.PROFILE) {
-//            ProfileScreen(
-//                navController = navController,
-//                innerPadding = innerPadding)
-//        }
+        composable(NavigationKeys.PROFILE) {
+            ProfileScreen(
+                navController = navController,
+                innerPadding = innerPadding)
+        }
     }
 }
