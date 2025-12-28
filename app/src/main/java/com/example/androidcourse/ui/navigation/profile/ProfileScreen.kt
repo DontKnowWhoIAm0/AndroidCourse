@@ -24,9 +24,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidcourse.R
 import com.example.androidcourse.ui.navigation.graph.NavigationKeys
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
@@ -48,20 +50,17 @@ fun ProfileScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Профиль") })
+            TopAppBar(title = { Text(stringResource(R.string.profile_title)) })
         }
     ) { padding ->
-
         Box(
             modifier = Modifier.fillMaxSize().padding(padding).padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
                     contentDescription = null,
@@ -75,7 +74,7 @@ fun ProfileScreen(
                 )
 
                 Text(
-                    text = "ID пользователя: ${state.userId}",
+                    text = stringResource(R.string.profile_user_id, state.userId),
                     style = MaterialTheme.typography.bodyMedium
                 )
 
@@ -85,7 +84,7 @@ fun ProfileScreen(
                     onClick = viewModel::logout,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("Выйти")
+                    Text(stringResource(R.string.profile_logout))
                 }
             }
         }

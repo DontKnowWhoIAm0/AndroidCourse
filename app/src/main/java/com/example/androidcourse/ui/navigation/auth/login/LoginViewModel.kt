@@ -6,6 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidcourse.R
 import com.example.androidcourse.data.db.AppDatabase
 import com.example.androidcourse.data.repository.UserRepository
 import com.example.androidcourse.utils.AuthManager
@@ -16,6 +17,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val userRepository = UserRepository(AppDatabase.getDatabase(application).userDao())
     private val authManager = AuthManager(application)
+    private val context = getApplication<Application>()
 
     // Для того, чтобы бд была открыта всегда
     init {
@@ -44,12 +46,12 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         val state = _uiState.value
 
         if (state.email.isBlank() || state.password.isBlank()) {
-            _uiState.value = state.copy(error = "Все поля обязательны")
+            _uiState.value = state.copy(error = context.getString(R.string.empty_fields))
             return
         }
 
         if (!isEmailValid(state.email)) {
-            _uiState.value = state.copy(error = "Неверный формат email")
+            _uiState.value = state.copy(error = context.getString(R.string.incorrect_email))
             return
         }
 
@@ -57,10 +59,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             _uiState.value = state.copy(isLoading = true)
 
             val result = userRepository.login(state.email, state.password)
-
             delay(500)
 
-            if (result.isSuccess) {
+            if (result) {
                 val user = userRepository.getUserByEmail(state.email)
                 user?.let {
                     authManager.saveSession(state.email, it.id)
@@ -69,7 +70,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             } else {
                 _uiState.value = state.copy(
                     isLoading = false,
-                    error = result.exceptionOrNull()?.message ?: "Ошибка входа"
+                    error = context.getString(R.string.login_failed)
                 )
             }
         }

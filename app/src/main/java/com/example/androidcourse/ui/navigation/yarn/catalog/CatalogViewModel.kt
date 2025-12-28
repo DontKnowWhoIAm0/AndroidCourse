@@ -3,6 +3,7 @@ package com.example.androidcourse.ui.navigation.yarn.catalog
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidcourse.R
 import com.example.androidcourse.data.db.AppDatabase
 import com.example.androidcourse.data.repository.YarnRepository
 import com.example.androidcourse.ui.navigation.yarn.catalog.sort.SortOption
@@ -39,7 +40,7 @@ class CatalogViewModel(application: Application) : AndroidViewModel(application)
                 _uiState.value = _uiState.value.copy(yarnFlow = yarns, isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
-                    error = "Ошибка загрузки: ${e.message}",
+                    error = getApplication<Application>().getString(R.string.load_error, e.message),
                     isLoading = false
                 )
             }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidcourse.R
 import com.example.androidcourse.data.db.AppDatabase
 import com.example.androidcourse.data.repository.UserRepository
 import com.example.androidcourse.utils.PasswordHasher
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 class RegistrationViewModel(application: Application) : AndroidViewModel(application) {
 
     private val userRepository = UserRepository(AppDatabase.getDatabase(application).userDao())
+    private val context = getApplication<Application>()
 
     private val _uiState = mutableStateOf(RegistrationUiState())
     val uiState: State<RegistrationUiState> = _uiState
@@ -35,40 +37,33 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
         val state = _uiState.value
 
         if (state.email.isBlank() || state.password.isBlank()) {
-            _uiState.value = state.copy(error = "Все поля обязательны")
+            _uiState.value = state.copy(error = context.getString(R.string.empty_fields))
             return
         }
 
         if (!isEmailValid(state.email)) {
-            _uiState.value = state.copy(error = "Неверный формат email")
+            _uiState.value = state.copy(error = context.getString(R.string.incorrect_email))
             return
         }
 
         if (!isPasswordStrong(state.password)) {
-            _uiState.value = state.copy(
-                error = "Пароль должен быть минимум 8 символов, содержать заглавную, прописную буквы и цифру"
-            )
+            _uiState.value = state.copy(error = context.getString(R.string.incorrect_type_of_passwords))
             return
         }
 
         viewModelScope.launch {
-            _uiState.value = state.copy(isLoading = true)
+            if (userRepository.isEmailExists(state.email)) {
+                _uiState.value = state.copy(error = context.getString(R.string.email_exists))
+                return@launch
+            }
 
+            _uiState.value = state.copy(isLoading = true)
             val salt = PasswordHasher.generateSalt()
             val hashedPassword = PasswordHasher.hash(state.password, salt)
 
-            val result = userRepository.registration(state.email, hashedPassword, salt)
-
+            userRepository.registration(state.email, hashedPassword, salt)
             delay(500)
-
-            _uiState.value = if (result.isSuccess) {
-                state.copy(isLoading = false, isSuccess = true)
-            } else {
-                state.copy(
-                    isLoading = false,
-                    error = result.exceptionOrNull()?.message
-                )
-            }
+            _uiState.value = state.copy(isLoading = false, isSuccess = true)
         }
     }
 

@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.androidcourse.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,7 +30,7 @@ fun SortBottomSheet(
         modifier = modifier
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("Выберите тип сортировки:", style = MaterialTheme.typography.headlineSmall)
+            Text(text = stringResource(R.string.select_sort_type), style = MaterialTheme.typography.headlineSmall)
 
             Spacer(modifier = Modifier.height(8.dp))
 

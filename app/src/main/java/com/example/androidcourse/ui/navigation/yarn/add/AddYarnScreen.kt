@@ -21,11 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidcourse.R
 
 @Composable
 fun AddYarnScreen(
@@ -37,9 +39,7 @@ fun AddYarnScreen(
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(state.isSuccess) {
-        if (state.isSuccess) {
-            navController.popBackStack()
-        }
+        if (state.isSuccess) { navController.popBackStack() }
     }
 
     Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
@@ -49,14 +49,14 @@ fun AddYarnScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Добавить пряжу",
+                text = stringResource(R.string.add_yarn_title),
                 style = MaterialTheme.typography.headlineMedium
             )
 
             OutlinedTextField(
                 value = state.brand,
                 onValueChange = viewModel::onBrandChange,
-                label = { Text("Бренд") },
+                label = { Text(stringResource(R.string.add_yarn_brand)) },
                 singleLine = true,
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -66,7 +66,7 @@ fun AddYarnScreen(
             OutlinedTextField(
                 value = state.composition,
                 onValueChange = viewModel::onCompositionChange,
-                label = { Text("Состав") },
+                label = { Text(stringResource(R.string.add_yarn_composition)) },
                 singleLine = true,
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -76,7 +76,7 @@ fun AddYarnScreen(
             OutlinedTextField(
                 value = state.skeinLength,
                 onValueChange = viewModel::onSkeinLengthChange,
-                label = { Text("Длина мотка (м)") },
+                label = { Text(stringResource(R.string.add_yarn_skein_length)) },
                 singleLine = true,
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
@@ -86,7 +86,7 @@ fun AddYarnScreen(
             OutlinedTextField(
                 value = state.weight,
                 onValueChange = viewModel::onWeightChange,
-                label = { Text("Вес мотка (г)") },
+                label = { Text(stringResource(R.string.add_yarn_weight)) },
                 singleLine = true,
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
@@ -96,7 +96,7 @@ fun AddYarnScreen(
             OutlinedTextField(
                 value = state.hookSize,
                 onValueChange = viewModel::onHookSizeChange,
-                label = { Text("Размер крючка") },
+                label = { Text(stringResource(R.string.add_yarn_hook_size)) },
                 singleLine = true,
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Next),
@@ -106,7 +106,7 @@ fun AddYarnScreen(
             OutlinedTextField(
                 value = state.needleSize,
                 onValueChange = viewModel::onNeedleSizeChange,
-                label = { Text("Размер спиц") },
+                label = { Text(stringResource(R.string.add_yarn_needle_size)) },
                 singleLine = true,
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Done),
@@ -125,7 +125,7 @@ fun AddYarnScreen(
                 enabled = viewModel.isSaveEnabled,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Сохранить")
+                Text(stringResource(R.string.add_yarn_save))
             }
         }
 

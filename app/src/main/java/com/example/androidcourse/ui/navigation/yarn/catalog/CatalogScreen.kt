@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.androidcourse.R
 import com.example.androidcourse.ui.navigation.graph.NavigationKeys
 import com.example.androidcourse.ui.navigation.yarn.catalog.sort.SortBottomSheet
 import com.example.androidcourse.ui.navigation.yarn.catalog.sort.SortOption
@@ -63,14 +64,14 @@ fun CatalogScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Каталог пряжи") },
+                title = { Text(stringResource(R.string.catalog_title)) },
                 actions = {
                     IconButton(
                         onClick = { navController.navigate(NavigationKeys.PROFILE) }
                     ) {
                         Icon(
                             imageVector = Icons.Default.AccountCircle,
-                            contentDescription = "В профиль",
+                            contentDescription = stringResource(R.string.profile_button_desc),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -95,7 +96,7 @@ fun CatalogScreen(
                         if (uiState.sortOption == SortOption.NONE) {
                             Icon(
                                 Icons.Default.Sort,
-                                contentDescription = "Сортировать список пряжи",
+                                contentDescription = stringResource(R.string.sort_yarn_desc),
                                 modifier = Modifier.size(24.dp)
                             )
                         } else {
@@ -111,7 +112,7 @@ fun CatalogScreen(
                     onClick = { navController.navigate(NavigationKeys.ADD_YARN) },
                     modifier = Modifier.size(64.dp)
                 ) {
-                    Icon(Icons.Default.Add, "Добавить пряжу")
+                    Icon(Icons.Default.Add, stringResource(R.string.add_yarn_desc))
                 }
             }
         }
@@ -138,7 +139,7 @@ fun CatalogScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("Пряжи еще нет. Добавьте первую!")
+                        Text(stringResource(R.string.no_yarns_message))
                     }
                 } else {
                     LazyColumn {
@@ -177,7 +178,7 @@ private fun ErrorCard(error: String, onDismiss: () -> Unit) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(error, color = MaterialTheme.colorScheme.onErrorContainer)
             Spacer(modifier = Modifier.height(8.dp))
-            TextButton(onClick = onDismiss) { Text("Повторить") }
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.retry_button))  }
         }
     }
 }

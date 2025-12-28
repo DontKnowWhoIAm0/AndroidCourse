@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.androidcourse.R
 import com.example.androidcourse.data.dao.UserDao
 import com.example.androidcourse.data.dao.YarnDao
 import com.example.androidcourse.data.entity.YarnEntity
@@ -23,7 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "app_database"
+                    context.getString(R.string.database_name)
                 ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

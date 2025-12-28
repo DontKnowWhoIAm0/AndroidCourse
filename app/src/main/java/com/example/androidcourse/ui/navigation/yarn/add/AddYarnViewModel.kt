@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidcourse.R
 import com.example.androidcourse.data.db.AppDatabase
 import com.example.androidcourse.data.repository.YarnRepository
 import com.example.androidcourse.model.Yarn
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 class AddYarnViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = YarnRepository(AppDatabase.getDatabase(application).yarnDao())
+    private val context = getApplication<Application>()
 
     private val _uiState = mutableStateOf(AddYarnUiState())
     val uiState: State<AddYarnUiState> = _uiState
@@ -57,46 +59,46 @@ class AddYarnViewModel(application: Application) : AndroidViewModel(application)
         val needleSize = state.needleSize.replace(",", ".").toFloatOrNull()
 
         if (skeinLength == null) {
-            _uiState.value = state.copy(error = "Длина мотка должна быть целым числом!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_skein_length_invalid))
             return
         } else if (skeinLength > 30000) {
-            _uiState.value = state.copy(error = "Длина мотка не может превышать 30000 метров!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_skein_length_too_large))
             return
         } else if (skeinLength <= 0) {
-            _uiState.value = state.copy(error = "Длина мотка не может быть отрицательной!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_skein_length_negative))
             return
         }
 
         if (weight == null) {
-            _uiState.value = state.copy(error = "Вес мотка должен быть целым числом!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_weight_invalid))
             return
         } else if (weight > 1000) {
-            _uiState.value = state.copy(error = "Вес мотка не может превышать 1000 грамм!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_weight_too_large))
             return
         } else if (weight <= 0) {
-            _uiState.value = state.copy(error = "Вес мотка не может быть отрицательным!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_weight_negative))
             return
         }
 
         if (hookSize == null) {
-            _uiState.value = state.copy(error = "Размер крючка должен быть числом!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_hook_size_invalid))
             return
         } else if (hookSize > 40) {
-            _uiState.value = state.copy(error = "Размер крючка не должен превышать 40 мм!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_hook_size_too_large))
             return
         } else if (hookSize <= 0) {
-            _uiState.value = state.copy(error = "Размер крючка не может быть отрицательным!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_hook_size_negative))
             return
         }
 
         if (needleSize == null) {
-            _uiState.value = state.copy(error = "Размер спиц должен быть числом!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_needle_size_invalid))
             return
         } else if (needleSize > 50) {
-            _uiState.value = state.copy(error = "Размер спиц не должен превышать 50 мм!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_needle_size_too_large))
             return
         } else if (needleSize <= 0) {
-            _uiState.value = state.copy(error = "Размер спиц не может быть отрицательным!")
+            _uiState.value = state.copy(error = context.getString(R.string.error_needle_size_negative))
             return
         }
 
