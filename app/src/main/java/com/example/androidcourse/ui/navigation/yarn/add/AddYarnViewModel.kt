@@ -19,7 +19,7 @@ class AddYarnViewModel(application: Application) : AndroidViewModel(application)
     val uiState: State<AddYarnUiState> = _uiState
 
     val isSaveEnabled: Boolean
-        get() = with(_uiState.value) { brand.isNotBlank() && composition.isNotBlank() &&
+        get() = with(uiState.value) { brand.isNotBlank() && composition.isNotBlank() &&
                 skeinLength.isNotBlank() && weight.isNotBlank() && hookSize.isNotBlank() &&
                 needleSize.isNotBlank() && !isLoading
         }
