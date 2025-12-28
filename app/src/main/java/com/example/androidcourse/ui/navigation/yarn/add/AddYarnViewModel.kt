@@ -62,6 +62,9 @@ class AddYarnViewModel(application: Application) : AndroidViewModel(application)
         } else if (skeinLength > 30000) {
             _uiState.value = state.copy(error = "Длина мотка не может превышать 30000 метров!")
             return
+        } else if (skeinLength <= 0) {
+            _uiState.value = state.copy(error = "Длина мотка не может быть отрицательной!")
+            return
         }
 
         if (weight == null) {
@@ -69,6 +72,9 @@ class AddYarnViewModel(application: Application) : AndroidViewModel(application)
             return
         } else if (weight > 1000) {
             _uiState.value = state.copy(error = "Вес мотка не может превышать 1000 грамм!")
+            return
+        } else if (weight <= 0) {
+            _uiState.value = state.copy(error = "Вес мотка не может быть отрицательным!")
             return
         }
 
@@ -78,6 +84,9 @@ class AddYarnViewModel(application: Application) : AndroidViewModel(application)
         } else if (hookSize > 40) {
             _uiState.value = state.copy(error = "Размер крючка не должен превышать 40 мм!")
             return
+        } else if (hookSize <= 0) {
+            _uiState.value = state.copy(error = "Размер крючка не может быть отрицательным!")
+            return
         }
 
         if (needleSize == null) {
@@ -85,6 +94,9 @@ class AddYarnViewModel(application: Application) : AndroidViewModel(application)
             return
         } else if (needleSize > 50) {
             _uiState.value = state.copy(error = "Размер спиц не должен превышать 50 мм!")
+            return
+        } else if (needleSize <= 0) {
+            _uiState.value = state.copy(error = "Размер спиц не может быть отрицательным!")
             return
         }
 
