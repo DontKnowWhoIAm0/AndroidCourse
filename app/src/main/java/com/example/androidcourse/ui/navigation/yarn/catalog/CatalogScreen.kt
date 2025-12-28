@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,10 +60,21 @@ fun CatalogScreen(
             TopAppBar(
                 title = { Text("Каталог пряжи") },
                 actions = {
-                    IconButton(onClick = { showSortSheet = true }) {
-                        Icon(
-                            Icons.Default.Sort,
-                            contentDescription = "Сортировка: ${uiState.sortOption.name}"
+                    Row {
+                        FilterChip(
+                            selected = true,
+                            onClick = { showSortSheet = true },
+                            label = {
+                                Text(
+                                    text = uiState.sortOption.name
+                                        .replace("_", " ")
+                                        .replace("ASC", "↑")
+                                        .replace("DESC", "↓")
+                                )
+                            },
+
+                            leadingIcon = { Icon(Icons.Default.Sort,  contentDescription = "Сортировать список пряжи") },
+                            modifier = Modifier.padding(end = 8.dp)
                         )
                     }
                 }
