@@ -62,9 +62,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
             if (result.isSuccess) {
                 val user = userRepository.getUserByEmail(state.email)
-//                user?.let {
-//                    authManager.saveSession(state.email, it.id)
-//                }
+                user?.let {
+                    authManager.saveSession(state.email, it.id)
+                }
                 _uiState.value = state.copy(isLoading = false, isSuccess = true)
             } else {
                 _uiState.value = state.copy(

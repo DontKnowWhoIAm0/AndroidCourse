@@ -22,12 +22,24 @@ interface YarnDao {
     @Query("SELECT * FROM yarns")
     fun getAll(): Flow<List<YarnEntity>>
 
+    @Query("SELECT * FROM yarns WHERE id = :id LIMIT 1")
+    suspend fun getYarnById(id: Int): YarnEntity?
+
     @Query("SELECT * FROM yarns ORDER BY brand")
     fun sortByBrand(): Flow<List<YarnEntity>>
+
+    @Query("SELECT * FROM yarns ORDER BY brand DESC")
+    fun sortByBrandDesc(): Flow<List<YarnEntity>>
+
+    @Query("SELECT * FROM yarns ORDER BY thickness")
+    fun sortByThickness(): Flow<List<YarnEntity>>
+
+    @Query("SELECT * FROM yarns ORDER BY thickness DESC")
+    fun sortByThicknessDesc(): Flow<List<YarnEntity>>
 
     @Query("SELECT * FROM yarns ORDER BY skeinLength")
     fun sortBySkeinLength(): Flow<List<YarnEntity>>
 
-    @Query("SELECT * FROM yarns WHERE id = :id LIMIT 1")
-    suspend fun getYarnById(id: Int): YarnEntity?
+    @Query("SELECT * FROM yarns ORDER BY skeinLength DESC")
+    fun sortBySkeinLengthDesc(): Flow<List<YarnEntity>>
 }

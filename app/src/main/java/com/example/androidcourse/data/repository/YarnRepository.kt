@@ -28,15 +28,35 @@ class YarnRepository(
             list.map { it.toModel() }
         }
 
-    fun getYarnsSortedByBrand(): Flow<List<Yarn>> =
+    suspend fun getYarnById(id: Int): Yarn? = yarnDao.getYarnById(id)?.toModel()
+
+    fun getAllYarnsSortedByBrand(): Flow<List<Yarn>> =
         yarnDao.sortByBrand().map { list ->
             list.map { it.toModel() }
         }
 
-    fun getYarnsSortedByLength(): Flow<List<Yarn>> =
+    fun getAllYarnsSortedByBrandDesc(): Flow<List<Yarn>> =
+        yarnDao.sortByBrandDesc().map { list ->
+            list.map { it.toModel() }
+        }
+
+    fun getAllYarnsSortedByThickness(): Flow<List<Yarn>> =
+        yarnDao.sortByThickness().map { list ->
+            list.map { it.toModel() }
+        }
+
+    fun getAllYarnsSortedByThicknessDesc(): Flow<List<Yarn>> =
+        yarnDao.sortByThicknessDesc().map { list ->
+            list.map { it.toModel() }
+        }
+
+    fun getAllYarnsSortedBySkeinLength(): Flow<List<Yarn>> =
         yarnDao.sortBySkeinLength().map { list ->
             list.map { it.toModel() }
         }
 
-    suspend fun getYarnById(id: Int): Yarn? = yarnDao.getYarnById(id)?.toModel()
+    fun getAllYarnsSortedBySkeinLengthDesc(): Flow<List<Yarn>> =
+        yarnDao.sortBySkeinLengthDesc().map { list ->
+            list.map { it.toModel() }
+        }
 }
