@@ -3,7 +3,7 @@ package com.example.androidcourse.data.mapper
 import androidx.room.TypeConverter
 import java.util.Date
 
-class TypeConverters {
+object TypeConverters {
 
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {

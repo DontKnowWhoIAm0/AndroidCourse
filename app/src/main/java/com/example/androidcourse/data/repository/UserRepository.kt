@@ -9,11 +9,7 @@ class UserRepository(
     private val userDao: UserDao
 ) {
 
-    suspend fun registration(
-        email: String,
-        password: String,
-        salt: String
-    ): Result<Unit> {
+    suspend fun registration(email: String, password: String, salt: String): Result<Unit> {
         if (userDao.isEmailExists(email) > 0) {
             return Result.failure(Exception("Email already exists"))
         }
@@ -47,5 +43,9 @@ class UserRepository(
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    suspend fun getUserByEmail(email: String): UserEntity? {
+        return userDao.getUserByEmail(email)
     }
 }

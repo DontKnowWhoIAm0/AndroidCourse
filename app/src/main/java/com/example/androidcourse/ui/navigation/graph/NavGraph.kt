@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.androidcourse.ui.navigation.auth.login.LoginScreen
 import com.example.androidcourse.ui.navigation.auth.registration.RegistrationScreen
+import com.example.androidcourse.ui.navigation.yarn.catalog.CatalogScreen
 
 @Composable
 fun NavGraph(
@@ -17,11 +18,10 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-//        startDestination = if (isUserLoggedIn)
-//            NavigationKeys.CATALOG
-//        else
-//            NavigationKeys.LOGIN,
-        startDestination = NavigationKeys.REGISTRATION,
+        startDestination = if (isUserLoggedIn)
+            NavigationKeys.CATALOG
+        else
+            NavigationKeys.LOGIN,
         modifier = Modifier
     ) {
         composable(NavigationKeys.LOGIN) {
@@ -36,11 +36,11 @@ fun NavGraph(
                 innerPadding = innerPadding)
         }
 
-//        composable(NavigationKeys.CATALOG) {
-//            CatalogScreen(
-//                navController = navController,
-//                innerPadding = innerPadding)
-//        }
+        composable(NavigationKeys.CATALOG) {
+            CatalogScreen(
+                navController = navController,
+                innerPadding = innerPadding)
+        }
 //
 //        composable(NavigationKeys.ADD_YARN) {
 //            AddScreen(

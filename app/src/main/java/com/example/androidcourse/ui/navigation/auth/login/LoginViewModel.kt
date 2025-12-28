@@ -8,11 +8,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidcourse.data.db.AppDatabase
 import com.example.androidcourse.data.repository.UserRepository
+import com.example.androidcourse.utils.AuthManager
 import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val userRepository = UserRepository(AppDatabase.getDatabase(application).userDao())
+    private val authManager = AuthManager(application)
 
     private val _uiState = mutableStateOf(LoginUiState())
     val uiState: State<LoginUiState> = _uiState
@@ -47,10 +49,14 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
             val result = userRepository.login(state.email, state.password)
 
-            _uiState.value = if (result.isSuccess) {
-                state.copy(isLoading = false, isSuccess = true)
+            if (result.isSuccess) {
+                val user = userRepository.getUserByEmail(state.email)
+                user?.let {
+                    authManager.saveSession(state.email, it.id)
+                }
+                _uiState.value = state.copy(isLoading = false, isSuccess = true)
             } else {
-                state.copy(
+                _uiState.value = state.copy(
                     isLoading = false,
                     error = result.exceptionOrNull()?.message ?: "Ошибка входа"
                 )

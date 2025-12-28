@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.androidcourse.data.entity.UserEntity
-import com.example.androidcourse.model.User
 
 @Dao
 interface UserDao {
