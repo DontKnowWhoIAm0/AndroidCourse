@@ -18,5 +18,5 @@ fun User.toEntity(salt: String): UserEntity = UserEntity(
     password = password,
     salt = salt,
     isDeleted = isDeleted,
-    deleteDate = deleteDate?.time
+    deleteDate = if (isDeleted && deleteDate != null) deleteDate.time else null
 )

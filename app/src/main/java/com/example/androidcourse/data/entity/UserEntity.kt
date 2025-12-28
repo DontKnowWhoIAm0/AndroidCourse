@@ -1,5 +1,6 @@
 package com.example.androidcourse.data.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,5 +11,5 @@ data class UserEntity(
     val password: String,
     val salt: String,
     val isDeleted: Boolean = false,
-    val deleteDate: Long? = null
+    @ColumnInfo(defaultValue = "NULL") val deleteDate: Long? = null
 )
