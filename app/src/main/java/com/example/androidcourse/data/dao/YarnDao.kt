@@ -31,11 +31,11 @@ interface YarnDao {
     @Query("SELECT * FROM yarns ORDER BY brand DESC")
     fun sortByBrandDesc(): Flow<List<YarnEntity>>
 
-    @Query("SELECT * FROM yarns ORDER BY thickness")
-    fun sortByThickness(): Flow<List<YarnEntity>>
+    @Query("SELECT * FROM yarns ORDER BY weight")
+    fun sortByWeight(): Flow<List<YarnEntity>>
 
-    @Query("SELECT * FROM yarns ORDER BY thickness DESC")
-    fun sortByThicknessDesc(): Flow<List<YarnEntity>>
+    @Query("SELECT * FROM yarns ORDER BY weight DESC")
+    fun sortByWeightDesc(): Flow<List<YarnEntity>>
 
     @Query("SELECT * FROM yarns ORDER BY skeinLength")
     fun sortBySkeinLength(): Flow<List<YarnEntity>>

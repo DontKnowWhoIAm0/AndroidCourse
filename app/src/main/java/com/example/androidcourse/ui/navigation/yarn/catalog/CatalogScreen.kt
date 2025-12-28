@@ -85,8 +85,6 @@ fun CatalogScreen(
 
                 FloatingActionButton(
                     onClick = { showSortSheet = true },
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(64.dp)
                 ) {
                     Row(

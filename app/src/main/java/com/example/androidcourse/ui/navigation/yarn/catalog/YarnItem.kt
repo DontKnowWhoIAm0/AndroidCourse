@@ -46,10 +46,10 @@ fun YarnItem(
             ) {
                 Column {
                     Text("Состав: ${yarn.composition}")
-                    Text("Длина: ${yarn.skeinLength}m")
+                    Text("Длина: ${yarn.skeinLength} м")
                 }
                 Column(horizontalAlignment = Alignment.End) {
-                    Text("Тонкость: ${yarn.thickness}")
+                    Text("Вес: ${yarn.weight} г")
                     Text("Крючок: ${yarn.hookSize}")
                     Text("Спицы: ${yarn.needleSize}")
                 }

@@ -8,7 +8,7 @@ fun YarnEntity.toModel(): Yarn = Yarn(
     brand = brand,
     composition = composition,
     skeinLength = skeinLength,
-    thickness = thickness,
+    weight = weight,
     hookSize = hookSize,
     needleSize = needleSize
 )
@@ -18,7 +18,7 @@ fun Yarn.toEntity(): YarnEntity = YarnEntity(
     brand = brand,
     composition = composition,
     skeinLength = skeinLength,
-    thickness = thickness,
+    weight = weight,
     hookSize = hookSize,
     needleSize = needleSize
 )

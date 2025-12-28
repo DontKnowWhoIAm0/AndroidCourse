@@ -5,7 +5,7 @@ data class Yarn(
     val brand: String,
     val composition: String,
     val skeinLength: Int,
-    val thickness: Int,
+    val weight: Int,
     val hookSize: Float,
     val needleSize: Float
 )

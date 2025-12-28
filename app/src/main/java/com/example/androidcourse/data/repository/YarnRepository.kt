@@ -40,13 +40,13 @@ class YarnRepository(
             list.map { it.toModel() }
         }
 
-    fun getAllYarnsSortedByThickness(): Flow<List<Yarn>> =
-        yarnDao.sortByThickness().map { list ->
+    fun getAllYarnsSortedByWeight(): Flow<List<Yarn>> =
+        yarnDao.sortByWeight().map { list ->
             list.map { it.toModel() }
         }
 
-    fun getAllYarnsSortedByThicknessDesc(): Flow<List<Yarn>> =
-        yarnDao.sortByThicknessDesc().map { list ->
+    fun getAllYarnsSortedByWeightDesc(): Flow<List<Yarn>> =
+        yarnDao.sortByWeightDesc().map { list ->
             list.map { it.toModel() }
         }
 
