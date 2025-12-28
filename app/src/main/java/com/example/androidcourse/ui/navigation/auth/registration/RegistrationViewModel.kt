@@ -43,6 +43,13 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
             return
         }
 
+        if (!isPasswordStrong(state.password)) {
+            _uiState.value = state.copy(
+                error = "Пароль должен быть минимум 8 символов, содержать заглавную, прописную буквы и цифру"
+            )
+            return
+        }
+
         viewModelScope.launch {
             _uiState.value = state.copy(isLoading = true)
 
@@ -68,5 +75,14 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
 
     private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun isPasswordStrong(password: String): Boolean {
+        val minLength = 8
+        val hasUpperCase = password.any { it.isUpperCase() }
+        val hasLowerCase = password.any { it.isLowerCase() }
+        val hasDigit = password.any { it.isDigit() }
+
+        return password.length >= minLength && hasUpperCase && hasLowerCase && hasDigit
     }
 }
