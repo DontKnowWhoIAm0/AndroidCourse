@@ -46,16 +46,16 @@
 
     <string name="error_skein_length_invalid">Длина мотка должна быть целым числом!</string>
     <string name="error_skein_length_too_large">Длина мотка не может превышать 30000 метров!</string>
-    <string name="error_skein_length_negative">Длина мотка не может быть отрицательной!</string>
+    <string name="error_skein_length_negative">Длина мотка должна быть положительной!</string>
     <string name="error_weight_invalid">Вес мотка должен быть целым числом!</string>
     <string name="error_weight_too_large">Вес мотка не может превышать 1000 грамм!</string>
-    <string name="error_weight_negative">Вес мотка не может быть отрицательным!</string>
+    <string name="error_weight_negative">Вес мотка должен быть положительным!</string>
     <string name="error_hook_size_invalid">Размер крючка должен быть числом!</string>
     <string name="error_hook_size_too_large">Размер крючка не должен превышать 40 мм!</string>
-    <string name="error_hook_size_negative">Размер крючка не может быть отрицательным!</string>
+    <string name="error_hook_size_negative">Размер крючка должен быть положительным!</string>
     <string name="error_needle_size_invalid">Размер спиц должен быть числом!</string>
     <string name="error_needle_size_too_large">Размер спиц не должен превышать 50 мм!</string>
-    <string name="error_needle_size_negative">Размер спиц не может быть отрицательным!</string>
+    <string name="error_needle_size_negative">Размер спиц должен быть положительным!</string>
 
     <string name="select_sort_type">Выберите тип сортировки:</string>
 

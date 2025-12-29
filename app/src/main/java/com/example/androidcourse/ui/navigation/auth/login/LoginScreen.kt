@@ -1,12 +1,23 @@
 package com.example.androidcourse.ui.navigation.auth.login
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -35,6 +46,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -132,6 +146,55 @@ fun LoginScreen(
             ) {
                 CircularProgressIndicator()
             }
+        }
+
+        if (state.isShimmerLoading) {
+            ShimmerEffect()
+        }
+    }
+}
+
+@Composable
+private fun ShimmerEffect() {
+    val backgroundColor = MaterialTheme.colorScheme.background
+    val shimmerColors = listOf(backgroundColor.copy(alpha = 0.6f), backgroundColor.copy(alpha = 0.3f), backgroundColor.copy(alpha = 0.6f))
+
+    val transition = rememberInfiniteTransition(label = "")
+    val translateAnim = transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1000f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Restart),
+        label = ""
+    )
+
+    val brush = Brush.linearGradient(
+        colors = shimmerColors,
+        start = Offset.Zero,
+        end = Offset(x = translateAnim.value, y = translateAnim.value)
+    )
+
+    Box(
+        modifier = Modifier.fillMaxSize().background(Color.White)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth().padding(32.dp).align(Alignment.Center),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Box(
+                modifier = Modifier.fillMaxWidth().height(60.dp).background(brush, RoundedCornerShape(12.dp))
+            )
+
+            repeat(3) {
+                Box(
+                    modifier = Modifier.fillMaxWidth().height(100.dp).background(brush, RoundedCornerShape(16.dp))
+                )
+            }
+
+            Box(
+                modifier = Modifier.size(56.dp).background(brush, RoundedCornerShape(28.dp)).align(Alignment.End)
+            )
         }
     }
 }

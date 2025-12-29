@@ -32,7 +32,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     val isLoginEnabled: Boolean
         get() = _uiState.value.email.isNotBlank() && _uiState.value.password.isNotBlank() &&
-                _uiState.value.error == null && !_uiState.value.isLoading
+                _uiState.value.error == null && !_uiState.value.isLoading && !_uiState.value.isShimmerLoading
 
     fun onEmailChange(value: String) {
         _uiState.value = _uiState.value.copy(email = value, error = null)
@@ -57,21 +57,17 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             _uiState.value = state.copy(isLoading = true)
-
             val result = userRepository.login(state.email, state.password)
-            delay(500)
+            delay(300)
 
             if (result) {
                 val user = userRepository.getUserByEmail(state.email)
-                user?.let {
-                    authManager.saveSession(state.email, it.id)
-                }
-                _uiState.value = state.copy(isLoading = false, isSuccess = true)
+                user?.let { authManager.saveSession(state.email, it.id) }
+                _uiState.value = state.copy(isLoading = false, isShimmerLoading = true)
+                delay(300)
+                _uiState.value = state.copy(isShimmerLoading = false, isSuccess = true)
             } else {
-                _uiState.value = state.copy(
-                    isLoading = false,
-                    error = context.getString(R.string.login_failed)
-                )
+                _uiState.value = state.copy(isLoading = false, error = context.getString(R.string.login_failed))
             }
         }
     }
