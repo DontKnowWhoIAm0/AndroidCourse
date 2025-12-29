@@ -16,11 +16,17 @@ interface UserDao {
     @Update
     suspend fun update(user: UserEntity)
 
+    @Query("""UPDATE users SET isDeleted = 1, deleteDate = :deleteDate WHERE id = :userId""")
+    suspend fun softDelete(userId: Int, deleteDate: Long)
+
     @Delete
     suspend fun delete(user: UserEntity)
 
     @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
     suspend fun getUserByEmail(email: String): UserEntity?
+
+    @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
+    suspend fun getUserById(id: Int): UserEntity?
 
     @Query("SELECT COUNT(*) FROM users WHERE email = :email")
     suspend fun isEmailExists(email: String): Int

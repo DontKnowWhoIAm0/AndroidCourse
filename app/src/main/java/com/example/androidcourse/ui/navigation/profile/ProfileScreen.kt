@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,6 +42,7 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = viewModel()
 ) {
     val state by viewModel.uiState
+    val showDeleteDialog by viewModel.showDeleteDialog
 
     LaunchedEffect(state.isLoggedOut) {
         if (state.isLoggedOut) {
@@ -86,7 +90,45 @@ fun ProfileScreen(
                 ) {
                     Text(stringResource(R.string.profile_logout))
                 }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Button(
+                    onClick = { viewModel.showDeleteDialog(true) },
+                    colors = ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.delete_account),
+                        color = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                }
+
+
             }
+        }
+
+        if (showDeleteDialog) {
+            AlertDialog(
+                onDismissRequest = { viewModel.showDeleteDialog(false) },
+                title = { Text(stringResource(R.string.delete_account_confirmation_title)) },
+                text = { Text(stringResource(R.string.delete_account_confirmation_message)) },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            viewModel.deleteAccount()
+                            viewModel.showDeleteDialog(false)
+                        }
+                    ) {
+                        Text(stringResource(R.string.delete))
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { viewModel.showDeleteDialog(false) }) {
+                        Text(stringResource(R.string.cancel))
+                    }
+                }
+            )
         }
     }
 }

@@ -72,4 +72,15 @@
     <string name="weight_label">Вес: %1$s г</string>
     <string name="hook_size_label">Крючок: %1$s</string>
     <string name="needle_size_label">Спицы: %1$s</string>
+
+    <string name="account_deleted_title">Аккаунт удалён</string>
+    <string name="account_deleted_message">Ваш аккаунт был удалён. Вы можете восстановить его в течение 7 дней или удалить окончательно.</string>
+    <string name="restore_account">Восстановить аккаунт</string>
+    <string name="delete_permanently">Удалить окончательно</string>
+
+    <string name="delete_account">Удалить аккаунт</string>
+    <string name="delete_account_confirmation_title">Удалить аккаунт?</string>
+    <string name="delete_account_confirmation_message">Это действие нельзя отменить. Вы сможете восстановить аккаунт в течение 7 дней.</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
 </resources>

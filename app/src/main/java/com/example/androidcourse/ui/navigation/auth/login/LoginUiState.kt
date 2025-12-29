@@ -6,5 +6,8 @@ data class LoginUiState(
     val isLoading: Boolean = false,
     val isShimmerLoading: Boolean = false,
     val error: String? = null,
-    val isSuccess: Boolean = false
+    val isSuccess: Boolean = false,
+
+    val isAccountDeleted: Boolean = false,
+    val deletedUserId: Int? = null
 )

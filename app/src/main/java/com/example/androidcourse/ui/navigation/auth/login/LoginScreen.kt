@@ -64,6 +64,14 @@ fun LoginScreen(
     var passwordVisible by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
+    LaunchedEffect(state.isAccountDeleted, state.deletedUserId) {
+        if (state.isAccountDeleted && state.deletedUserId != null) {
+            navController.navigate("${NavigationKeys.ACCOUNT_RECOVERY}/${state.deletedUserId}") {
+                popUpTo(NavigationKeys.LOGIN) { inclusive = false }
+            }
+        }
+    }
+
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
             navController.navigate(NavigationKeys.CATALOG) {

@@ -6,4 +6,5 @@ object NavigationKeys {
     const val CATALOG = "catalog"
     const val ADD_YARN = "add_yarn"
     const val PROFILE = "profile"
+    const val ACCOUNT_RECOVERY = "account_recovery"
 }

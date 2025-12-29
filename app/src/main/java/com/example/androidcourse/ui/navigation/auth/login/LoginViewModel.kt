@@ -57,18 +57,32 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             _uiState.value = state.copy(isLoading = true)
-            val result = userRepository.login(state.email, state.password)
+            val user = userRepository.login(state.email, state.password)
             delay(300)
 
-            if (result) {
-                val user = userRepository.getUserByEmail(state.email)
-                user?.let { authManager.saveSession(state.email, it.id) }
-                _uiState.value = state.copy(isLoading = false, isShimmerLoading = true)
-                delay(300)
-                _uiState.value = state.copy(isShimmerLoading = false, isSuccess = true)
-            } else {
-                _uiState.value = state.copy(isLoading = false, error = context.getString(R.string.login_failed))
+            if (user == null) {
+                _uiState.value =
+                    state.copy(isLoading = false, error = context.getString(R.string.login_failed))
+                return@launch
             }
+
+            if (user.isDeleted) {
+                val now = System.currentTimeMillis()
+                val deleteDate = user.deleteDate ?: now
+                val daysPassed = (now - deleteDate) / (1000 * 60 * 60 * 24)
+
+                if (daysPassed <= 7) {
+                    _uiState.value = state.copy(isLoading = false, isAccountDeleted = true, deletedUserId = user.id)
+                } else {
+                    userRepository.delete(user.id)
+                    _uiState.value = state.copy(isLoading = false, error = context.getString(R.string.login_failed)
+                    )
+                }
+                return@launch
+            }
+
+            authManager.saveSession(user.email, user.id)
+            _uiState.value = state.copy(isLoading = false, isSuccess = true)
         }
     }
 

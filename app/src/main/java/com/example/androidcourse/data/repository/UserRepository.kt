@@ -20,14 +20,19 @@ class UserRepository(
         userDao.insert(user)
     }
 
-    suspend fun login(email: String, password: String): Boolean {
-        val userEntity = userDao.getUserByEmail(email) ?: return false
+    suspend fun login(email: String, password: String): UserEntity? {
+        val userEntity = userDao.getUserByEmail(email) ?: return null
         val hashedInputPassword = PasswordHasher.hash(password, userEntity.salt)
-        return hashedInputPassword == userEntity.password
+        if (userEntity.password != hashedInputPassword) return null
+        return userEntity
     }
 
     suspend fun getUserByEmail(email: String): UserEntity? {
         return userDao.getUserByEmail(email)
+    }
+
+    suspend fun getUserById(id: Int): UserEntity? {
+        return userDao.getUserById(id)
     }
 
     suspend fun isEmailExists(email: String): Boolean {
@@ -36,5 +41,17 @@ class UserRepository(
 
     fun observeUsers(): Flow<List<UserEntity>> {
         return userDao.observeUsers()
+    }
+
+    suspend fun softDeleteUser(userId: Int) {
+        userDao.softDelete(userId = userId, deleteDate = System.currentTimeMillis())
+    }
+
+    suspend fun restoreUser(userId: Int) {
+        userDao.update(userDao.getUserById(userId)!!.copy(isDeleted = false, deleteDate = null))
+    }
+
+    suspend fun delete(userId: Int) {
+        userDao.getUserById(userId)?.let { userDao.delete(it) }
     }
 }

@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.androidcourse.ui.navigation.auth.login.LoginScreen
+import com.example.androidcourse.ui.navigation.auth.recovery.AccountRecoveryScreen
 import com.example.androidcourse.ui.navigation.auth.registration.RegistrationScreen
 import com.example.androidcourse.ui.navigation.profile.ProfileScreen
 import com.example.androidcourse.ui.navigation.yarn.add.AddYarnScreen
@@ -54,6 +55,15 @@ fun NavGraph(
             ProfileScreen(
                 navController = navController,
                 innerPadding = innerPadding)
+        }
+
+        composable("${NavigationKeys.ACCOUNT_RECOVERY}/{userId}") { backStackEntry ->
+            val userId = backStackEntry.arguments?.getString("userId")?.toIntOrNull() ?: 0
+            AccountRecoveryScreen(
+                navController = navController,
+                userId = userId,
+                innerPadding = innerPadding
+            )
         }
     }
 }
