@@ -51,6 +51,12 @@ class UserRepository(
         userDao.update(userDao.getUserById(userId)!!.copy(isDeleted = false, deleteDate = null))
     }
 
+    suspend fun deleteOldDeletedUsers() {
+        val sevenDaysMillis = 7 * 24 * 60 * 60 * 1000L
+        val time = System.currentTimeMillis() - sevenDaysMillis
+        userDao.deleteOldDeletedUsers(time)
+    }
+
     suspend fun delete(userId: Int) {
         userDao.getUserById(userId)?.let { userDao.delete(it) }
     }

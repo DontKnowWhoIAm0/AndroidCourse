@@ -33,4 +33,7 @@ interface UserDao {
 
     @Query("SELECT * FROM users")
     fun observeUsers(): Flow<List<UserEntity>>
+
+    @Query("DELETE FROM users WHERE isDeleted = 1 AND deleteDate IS NOT NULL AND deleteDate < :time")
+    suspend fun deleteOldDeletedUsers(time: Long)
 }

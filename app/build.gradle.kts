@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.coil.network)
 
     implementation(libs.room)
+    implementation(libs.androidx.work.runtime.ktx)
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
