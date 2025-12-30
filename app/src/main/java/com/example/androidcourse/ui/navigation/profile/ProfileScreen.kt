@@ -88,19 +88,17 @@ fun ProfileScreen(
                     onClick = viewModel::logout,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text(stringResource(R.string.profile_logout))
+                    Text(stringResource(R.string.profile_logout), style = MaterialTheme.typography.bodyLarge)
                 }
-
-                Spacer(modifier = Modifier.height(12.dp))
 
                 Button(
                     onClick = { viewModel.showDeleteDialog(true) },
                     colors = ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.delete_account),
-                        color = MaterialTheme.colorScheme.onErrorContainer
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
 

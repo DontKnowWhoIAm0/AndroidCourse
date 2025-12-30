@@ -1,7 +1,6 @@
 package com.example.androidcourse
 
 import android.app.Application
-import android.util.Log
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager

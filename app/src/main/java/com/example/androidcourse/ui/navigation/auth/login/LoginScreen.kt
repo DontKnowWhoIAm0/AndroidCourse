@@ -81,9 +81,9 @@ fun LoginScreen(
         }
     }
 
-    Box (modifier = Modifier.padding(innerPadding).fillMaxWidth().imePadding()) {
+    Box (modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(), contentAlignment = Alignment.Center) {
         Column(
-            modifier = Modifier.padding(innerPadding).padding(16.dp),
+            modifier = Modifier.padding(innerPadding).padding(16.dp).fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -100,7 +100,8 @@ fun LoginScreen(
                 isError = state.error != null,
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) })
+                keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
+                modifier = Modifier.fillMaxWidth()
             )
 
             OutlinedTextField(
@@ -119,7 +120,8 @@ fun LoginScreen(
                 isError = state.error != null,
                 enabled = !state.isLoading,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                modifier = Modifier.fillMaxWidth()
             )
 
             state.error?.let {
