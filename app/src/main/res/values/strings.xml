@@ -1,3 +1,86 @@
 <resources>
     <string name="app_name">AndroidCourse</string>
+    <string name="sort_none">Без сортировки</string>
+    <string name="sort_brand_asc">Бренд A–Я</string>
+    <string name="sort_brand_desc">Бренд Я–A</string>
+    <string name="sort_weight_asc">Вес ↑</string>
+    <string name="sort_weight_desc">Вес ↓</string>
+    <string name="sort_length_asc">Длина ↑</string>
+    <string name="sort_length_desc">Длина ↓</string>
+
+    <string name="database_name">app_database</string>
+
+    <string name="email_exists">Аккаунт с таким email уже существует!</string>
+    <string name="incorrect_password">Неверный пароль</string>
+    <string name="incorrect_email">Неверный формат email</string>
+    <string name="incorrect_type_of_passwords">Пароль должен быть минимум 8 символов, содержать заглавную, прописную буквы и цифру</string>
+    <string name="empty_fields">Все поля обязательны</string>
+    <string name="wrong_password">Неверный пароль</string>
+    <string name="user_not_found">Пользователь не найден</string>
+    <string name="login_failed">Неверный email или пароль</string>
+
+    <string name="login_title">Вход</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Пароль</string>
+    <string name="show_password">Показать пароль</string>
+    <string name="hide_password">Скрыть пароль</string>
+    <string name="button_login">Войти</string>
+    <string name="no_account">Нет аккаунта? Зарегистрироваться</string>
+
+    <string name="registration_title">Регистрация</string>
+    <string name="button_register">Зарегистрироваться</string>
+    <string name="already_have_account">Уже есть аккаунт? Войти</string>
+
+    <string name="profile_title">Профиль</string>
+    <string name="profile_user_id">ID пользователя: %1$d</string>
+    <string name="profile_logout">Выйти</string>
+
+    <string name="add_yarn_title">Добавить пряжу</string>
+    <string name="add_yarn_brand">Бренд</string>
+    <string name="add_yarn_composition">Состав</string>
+    <string name="add_yarn_skein_length">Длина мотка (м)</string>
+    <string name="add_yarn_weight">Вес мотка (г)</string>
+    <string name="add_yarn_hook_size">Размер крючка</string>
+    <string name="add_yarn_needle_size">Размер спиц</string>
+    <string name="add_yarn_save">Сохранить</string>
+
+    <string name="error_skein_length_invalid">Длина мотка должна быть целым числом!</string>
+    <string name="error_skein_length_too_large">Длина мотка не может превышать 30000 метров!</string>
+    <string name="error_skein_length_negative">Длина мотка должна быть положительной!</string>
+    <string name="error_weight_invalid">Вес мотка должен быть целым числом!</string>
+    <string name="error_weight_too_large">Вес мотка не может превышать 1000 грамм!</string>
+    <string name="error_weight_negative">Вес мотка должен быть положительным!</string>
+    <string name="error_hook_size_invalid">Размер крючка должен быть числом!</string>
+    <string name="error_hook_size_too_large">Размер крючка не должен превышать 40 мм!</string>
+    <string name="error_hook_size_negative">Размер крючка должен быть положительным!</string>
+    <string name="error_needle_size_invalid">Размер спиц должен быть числом!</string>
+    <string name="error_needle_size_too_large">Размер спиц не должен превышать 50 мм!</string>
+    <string name="error_needle_size_negative">Размер спиц должен быть положительным!</string>
+
+    <string name="select_sort_type">Выберите тип сортировки:</string>
+
+    <string name="catalog_title">Каталог пряжи</string>
+    <string name="profile_button_desc">В профиль</string>
+    <string name="sort_yarn_desc">Сортировать список пряжи</string>
+    <string name="add_yarn_desc">Добавить пряжу</string>
+    <string name="no_yarns_message">Пряжи еще нет. Добавьте первую!</string>
+    <string name="retry_button">Повторить</string>
+
+    <string name="load_error">Ошибка загрузки: %1$s</string>
+    <string name="composition_label">Состав: %1$s</string>
+    <string name="skein_length_label">Длина: %1$s м</string>
+    <string name="weight_label">Вес: %1$s г</string>
+    <string name="hook_size_label">Крючок: %1$s</string>
+    <string name="needle_size_label">Спицы: %1$s</string>
+
+    <string name="account_deleted_title">Аккаунт удалён</string>
+    <string name="account_deleted_message">Ваш аккаунт был удалён. Вы можете восстановить его в течение 7 дней или удалить окончательно.</string>
+    <string name="restore_account">Восстановить аккаунт</string>
+    <string name="delete_permanently">Удалить окончательно</string>
+
+    <string name="delete_account">Удалить аккаунт</string>
+    <string name="delete_account_confirmation_title">Удалить аккаунт?</string>
+    <string name="delete_account_confirmation_message">Это действие нельзя отменить. Вы сможете восстановить аккаунт в течение 7 дней.</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
 </resources>
