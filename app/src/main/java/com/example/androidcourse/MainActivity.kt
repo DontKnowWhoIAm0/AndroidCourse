@@ -3,45 +3,28 @@ package com.example.androidcourse
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.androidcourse.ui.theme.AndroidCourseTheme
+import androidx.room.Room
+import com.example.androidcourse.data.local.WeatherDatabase
+import com.example.androidcourse.di.AppModule
+import com.example.androidcourse.presentation.ui.WeatherScreen
+import com.example.androidcourse.presentation.viewmodel.WeatherStringsImpl
+import com.example.androidcourse.presentation.viewmodel.WeatherViewModel
+import com.example.androidcourse.utils.DbConstants
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        val weatherStrings = WeatherStringsImpl(this)
+
+        val api = AppModule.provideWeatherApi()
+        val db = Room.databaseBuilder(applicationContext, WeatherDatabase::class.java, DbConstants.DB_NAME).fallbackToDestructiveMigration().build()
+        val repo = AppModule.provideWeatherRepository(api, db.weatherDao(), weatherStrings)
+        val useCase = AppModule.provideGetWeatherUseCase(repo)
+        val viewModel = WeatherViewModel(useCase, weatherStrings)
+
         setContent {
-            AndroidCourseTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            WeatherScreen(viewModel)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AndroidCourseTheme {
-        Greeting("Android")
     }
 }

@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">AndroidCourse</string>
+
+    <string name="no_internet">Нет подключения к интернету</string>
+    <string name="city_not_found">Город не найден</string>
+    <string name="auth_error">Ошибка авторизации</string>
+    <string name="service_unavailable">Сервис временно недоступен %1$d</string>
+    <string name="service_timeout">Сервис не отвечает, попробуйте позже</string>
+    <string name="unknown_error">Ошибка неизвестна, отрубите руки программисту</string>
+
+    <string name="enter_city">Введите название города</string>
+    <string name="unknown">Произошла ошибка</string>
+
+    <string name="enter_city_name">Введите город</string>
+    <string name="get_weather">Узнать погоду!</string>
+    <string name="data_received_remote">Данные получены с сервера</string>
+    <string name="data_received_cache">Данные получены из кэша</string>
+    <string name="error">Ошибка: %1$s</string>
+    <string name="humidity">Влажность: %1$d%%</string>
+    <string name="wind">Ветер: %1$.1f м/с</string>
+    <string name="temperature_and_description">%1$f°C, %2$s</string>
 </resources>
