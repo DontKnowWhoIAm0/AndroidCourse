@@ -70,6 +70,13 @@ fun WeatherScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        Button(
+            onClick = { throw RuntimeException("Test Crashlytics crash") },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Краш тест")
+        }
+
         when(state) {
             is WeatherState.Loading -> CircularProgressIndicator(modifier = Modifier.padding(top = 32.dp))
             is WeatherState.Success -> {
