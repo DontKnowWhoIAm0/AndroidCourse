@@ -40,7 +40,10 @@ import com.example.androidcourse.utils.ApiParams
 import com.example.androidcourse.utils.DataSource
 
 @Composable
-fun WeatherScreen(viewModel: WeatherViewModel) {
+fun WeatherScreen(
+    viewModel: WeatherViewModel,
+    onCitySelected: (String) -> Unit = {}
+) {
     val context = LocalContext.current
 
     var city by remember { mutableStateOf("") }
@@ -71,6 +74,13 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             is WeatherState.Loading -> CircularProgressIndicator(modifier = Modifier.padding(top = 32.dp))
             is WeatherState.Success -> {
                 WeatherDetails(state.result.weather)
+
+                Button(
+                    onClick = { onCitySelected(state.result.weather.cityName) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Подробнее")
+                }
 
                 val sourceText = if (state.result.source == DataSource.REMOTE)
                     stringResource(id = R.string.data_received_remote)

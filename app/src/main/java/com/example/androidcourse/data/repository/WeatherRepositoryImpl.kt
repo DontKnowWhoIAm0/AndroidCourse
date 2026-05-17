@@ -10,8 +10,9 @@ import com.example.androidcourse.utils.WeatherResult
 import com.example.androidcourse.domain.repository.WeatherRepository
 import java.net.UnknownHostException
 import java.net.SocketTimeoutException
+import javax.inject.Inject
 
-class WeatherRepositoryImpl(
+class WeatherRepositoryImpl @Inject constructor(
     private val api: WeatherApi,
     private val dao: WeatherDao,
     private val strings: WeatherStrings
