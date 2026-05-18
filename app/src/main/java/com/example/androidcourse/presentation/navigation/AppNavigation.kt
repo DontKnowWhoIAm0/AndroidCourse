@@ -15,12 +15,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.androidcourse.di.AppComponent
+import com.example.androidcourse.di.app.AppComponent
 import com.example.androidcourse.presentation.ui.WeatherDetailScreen
 import com.example.androidcourse.presentation.ui.WeatherScreen
-import com.example.androidcourse.utils.CrashlyticsLogger
+import com.example.androidcourse.utils.analytics.CrashlyticsLogger
 import com.example.androidcourse.presentation.ui.OnboardingBottomSheet
-import com.example.androidcourse.utils.OnboardingPreferences
+import com.example.androidcourse.utils.analytics.AnalyticsLogger
+import com.example.androidcourse.utils.prefs.OnboardingPreferences
 
 sealed class Screen(val route: String) {
     object Weather : Screen("weather")
@@ -49,7 +50,7 @@ fun AppNavigation(appComponent: AppComponent) {
                 }
                 else -> destination.route ?: "Unknown"
             }
-            CrashlyticsLogger.logScreenView(screenName)
+            AnalyticsLogger.logScreenView(screenName)
         }
         navController.addOnDestinationChangedListener(listener)
         onDispose {

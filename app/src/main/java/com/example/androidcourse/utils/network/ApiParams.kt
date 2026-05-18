@@ -1,4 +1,4 @@
-package com.example.androidcourse.utils
+package com.example.androidcourse.utils.network
 
 object ApiParams {
     const val WEATHER = "weather"

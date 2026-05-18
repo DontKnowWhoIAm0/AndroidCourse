@@ -1,4 +1,4 @@
-package com.example.androidcourse.utils
+package com.example.androidcourse.utils.analytics
 
 import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -10,22 +10,11 @@ object CrashlyticsLogger {
         FirebaseCrashlytics.getInstance().setUserId(userId)
     }
 
-    fun logScreenView(screenName: String) {
-        FirebaseCrashlytics.getInstance().log("Screen: $screenName")
-    }
-
     fun logEvent(event: String) {
         FirebaseCrashlytics.getInstance().log(event)
     }
 
     fun recordException(throwable: Throwable) {
         FirebaseCrashlytics.getInstance().recordException(throwable)
-    }
-
-    fun logScreenViewAnalytics(analytics: FirebaseAnalytics, screenName: String) {
-        val bundle = Bundle().apply {
-            putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
-        }
-        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
     }
 }

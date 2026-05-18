@@ -1,4 +1,4 @@
-package com.example.androidcourse.di
+package com.example.androidcourse.di.app
 
 import com.example.androidcourse.data.repository.WeatherRepositoryImpl
 import com.example.androidcourse.domain.repository.WeatherRepository

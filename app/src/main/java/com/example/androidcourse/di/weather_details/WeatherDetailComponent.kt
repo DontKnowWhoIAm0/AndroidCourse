@@ -1,4 +1,4 @@
-package com.example.androidcourse.di
+package com.example.androidcourse.di.weather_details
 
 import com.example.androidcourse.presentation.viewmodel.WeatherDetailViewModel
 import dagger.BindsInstance

@@ -36,8 +36,8 @@ import com.example.androidcourse.R
 import com.example.androidcourse.domain.model.Weather
 import com.example.androidcourse.presentation.viewmodel.WeatherState
 import com.example.androidcourse.presentation.viewmodel.WeatherViewModel
-import com.example.androidcourse.utils.ApiParams
-import com.example.androidcourse.utils.DataSource
+import com.example.androidcourse.utils.network.ApiParams
+import com.example.androidcourse.utils.database.DataSource
 
 @Composable
 fun WeatherScreen(
@@ -71,7 +71,7 @@ fun WeatherScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { throw RuntimeException("Test Crashlytics crash") },
+            onClick = { throw RuntimeException("Test Crashlytics") },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Краш тест")

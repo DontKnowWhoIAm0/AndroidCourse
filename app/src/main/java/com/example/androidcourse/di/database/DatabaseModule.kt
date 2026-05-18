@@ -1,10 +1,10 @@
-package com.example.androidcourse.di
+package com.example.androidcourse.di.database
 
 import android.content.Context
 import androidx.room.Room
 import com.example.androidcourse.data.local.WeatherDao
 import com.example.androidcourse.data.local.WeatherDatabase
-import com.example.androidcourse.utils.DbConstants
+import com.example.androidcourse.utils.database.DbConstants
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

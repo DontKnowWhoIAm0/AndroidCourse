@@ -1,4 +1,4 @@
-package com.example.androidcourse.di
+package com.example.androidcourse.di.network
 
 import com.example.androidcourse.BuildConfig
 import com.example.androidcourse.data.network.WeatherApi

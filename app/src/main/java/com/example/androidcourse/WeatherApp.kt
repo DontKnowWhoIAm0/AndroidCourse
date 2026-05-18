@@ -1,11 +1,11 @@
 package com.example.androidcourse
 
 import android.app.Application
-import com.example.androidcourse.di.AppComponent
-import com.example.androidcourse.di.DaggerAppComponent
+import com.example.androidcourse.di.app.AppComponent
+import com.example.androidcourse.di.app.DaggerAppComponent
 import com.example.androidcourse.service.NotificationHelper
-import com.example.androidcourse.utils.CrashlyticsLogger
-import com.example.androidcourse.utils.UserPreferences
+import com.example.androidcourse.utils.analytics.CrashlyticsLogger
+import com.example.androidcourse.utils.prefs.UserPreferences
 import com.google.firebase.FirebaseApp
 
 class WeatherApp : Application() {

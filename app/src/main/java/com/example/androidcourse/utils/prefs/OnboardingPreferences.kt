@@ -1,4 +1,4 @@
-package com.example.androidcourse.utils
+package com.example.androidcourse.utils.prefs
 
 import android.content.Context
 

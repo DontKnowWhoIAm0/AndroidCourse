@@ -1,11 +1,10 @@
 package com.example.androidcourse.data.repository
 
-import android.util.Log
 import com.example.androidcourse.data.local.WeatherDao
 import com.example.androidcourse.data.mapper.toDomain
 import com.example.androidcourse.data.mapper.toEntity
 import com.example.androidcourse.data.network.WeatherApi
-import com.example.androidcourse.utils.DataSource
+import com.example.androidcourse.utils.database.DataSource
 import com.example.androidcourse.utils.WeatherResult
 import com.example.androidcourse.domain.repository.WeatherRepository
 import java.net.UnknownHostException
