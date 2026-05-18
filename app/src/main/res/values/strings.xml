@@ -19,4 +19,35 @@
     <string name="humidity">Влажность: %1$d%%</string>
     <string name="wind">Ветер: %1$.1f м/с</string>
     <string name="temperature_and_description">%1$f°C, %2$s</string>
+    <string name="crash_test_button">Краш тест</string>
+    <string name="details_button">Подробнее</string>
+
+    <string name="onboarding_title">Добро пожаловать в WeatherApp</string>
+    <string name="onboarding_features_header">Что умеет приложение:</string>
+    <string name="onboarding_feature_search">Поиск погоды по названию города</string>
+    <string name="onboarding_feature_cache">Кэширование — работает без интернета</string>
+    <string name="onboarding_feature_details">Детальная информация о погоде</string>
+    <string name="onboarding_feature_notifications">Push-уведомления о погоде и акциях</string>
+    <string name="onboarding_disclaimer">Используя приложение, вы соглашаетесь с тем, что данные о погоде предоставляются сервисом OpenWeatherMap и могут незначительно отличаться от реальных.</string>
+    <string name="onboarding_button">Понятно, начать!</string>
+
+    <string name="detail_temperature">Температура: %1$s°C</string>
+    <string name="detail_description">Описание: %1$s</string>
+    <string name="detail_humidity">Влажность: %1$s%%</string>
+    <string name="detail_wind">Ветер: %1$s м/с</string>
+
+    <string name="channel_promo_name">Промо</string>
+    <string name="channel_auth_name">Авторизация</string>
+    <string name="channel_weather_name">Погодные предупреждения</string>
+    <string name="channel_default_name">Общие</string>
+
+    <string name="push_title_promo">Специальное предложение</string>
+    <string name="push_title_auth">Безопасность аккаунта</string>
+    <string name="push_title_weather">Погодное предупреждение</string>
+    <string name="push_title_unknown">Уведомление</string>
+
+    <string name="push_message_promo">У нас есть что-то для вас!</string>
+    <string name="push_message_auth">Выполнен вход в аккаунт</string>
+    <string name="push_message_weather">Проверьте погоду в вашем городе</string>
+    <string name="push_message_unknown">Новое сообщение</string>
 </resources>

@@ -8,11 +8,13 @@
     import com.example.androidcourse.domain.usecase.GetWeatherUseCase
     import kotlinx.coroutines.launch
     import androidx.compose.runtime.State
+    import com.example.androidcourse.data.repository.WeatherStrings
     import javax.inject.Inject
 
     class WeatherDetailViewModel @Inject constructor(
         @CityName private val cityName: String,
         private val getWeatherUseCase: GetWeatherUseCase,
+        private val strings: WeatherStrings
     ) : ViewModel() {
 
         private val _weather = mutableStateOf<Weather?>(null)
@@ -30,7 +32,7 @@
                 val result = getWeatherUseCase(cityName)
                 result.fold(
                     onSuccess = { _weather.value = it.weather },
-                    onFailure = { _error.value = it.message ?: "Ошибка" }
+                    onFailure = { _error.value = it.message ?: strings.unknown }
                 )
             }
         }

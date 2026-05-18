@@ -18,7 +18,6 @@ import androidx.navigation.navArgument
 import com.example.androidcourse.di.app.AppComponent
 import com.example.androidcourse.presentation.ui.WeatherDetailScreen
 import com.example.androidcourse.presentation.ui.WeatherScreen
-import com.example.androidcourse.utils.analytics.CrashlyticsLogger
 import com.example.androidcourse.presentation.ui.OnboardingBottomSheet
 import com.example.androidcourse.utils.analytics.AnalyticsLogger
 import com.example.androidcourse.utils.prefs.OnboardingPreferences
@@ -28,6 +27,12 @@ sealed class Screen(val route: String) {
     object Detail : Screen("detail/{cityName}") {
         fun createRoute(cityName: String) = "detail/$cityName"
     }
+}
+
+private object ScreenNames {
+    const val WEATHER = "WeatherScreen"
+    const val DETAIL_PREFIX = "WeatherDetailScreen"
+    const val UNKNOWN = "Unknown"
 }
 
 @Composable
@@ -43,12 +48,12 @@ fun AppNavigation(appComponent: AppComponent) {
     DisposableEffect(navController) {
         val listener = androidx.navigation.NavController.OnDestinationChangedListener { _, destination, arguments ->
             val screenName = when (destination.route) {
-                Screen.Weather.route -> "WeatherScreen"
+                Screen.Weather.route -> ScreenNames.WEATHER
                 Screen.Detail.route -> {
-                    val city = arguments?.getString("cityName") ?: "unknown"
-                    "WeatherDetailScreen(city=$city)"
+                    val city = arguments?.getString("cityName") ?: ScreenNames.UNKNOWN
+                    "${ScreenNames.DETAIL_PREFIX}(city=$city)"
                 }
-                else -> destination.route ?: "Unknown"
+                else -> destination.route ?: ScreenNames.UNKNOWN
             }
             AnalyticsLogger.logScreenView(screenName)
         }

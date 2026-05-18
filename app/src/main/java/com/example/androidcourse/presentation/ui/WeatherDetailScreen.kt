@@ -5,8 +5,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.androidcourse.presentation.viewmodel.WeatherDetailViewModel
+import com.example.androidcourse.R
 
 @Composable
 fun WeatherDetailScreen(viewModel: WeatherDetailViewModel) {
@@ -26,10 +28,10 @@ fun WeatherDetailScreen(viewModel: WeatherDetailViewModel) {
                     text = weather.cityName,
                     style = MaterialTheme.typography.headlineMedium
                 )
-                Text(text = "Температура: ${weather.temperature}°C")
-                Text(text = "Описание: ${weather.description}")
-                Text(text = "Влажность: ${weather.humidity}%")
-                Text(text = "Ветер: ${weather.windSpeed} м/с")
+                Text(text = stringResource(id = R.string.detail_temperature, weather.temperature))
+                Text(text = stringResource(id = R.string.detail_description, weather.description))
+                Text(text = stringResource(id = R.string.detail_humidity, weather.humidity))
+                Text(text = stringResource(id = R.string.detail_wind, weather.windSpeed))
             }
         }
     }

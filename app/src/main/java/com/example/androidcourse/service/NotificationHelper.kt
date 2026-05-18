@@ -18,10 +18,10 @@ object NotificationHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val manager = context.getSystemService(NotificationManager::class.java)
             listOf(
-                NotificationChannel(CHANNEL_PROMO, "Промо", NotificationManager.IMPORTANCE_DEFAULT),
-                NotificationChannel(CHANNEL_AUTH, "Авторизация", NotificationManager.IMPORTANCE_HIGH),
-                NotificationChannel(CHANNEL_WEATHER, "Погодные предупреждения", NotificationManager.IMPORTANCE_HIGH),
-                NotificationChannel(CHANNEL_DEFAULT, "Общие", NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationChannel(CHANNEL_PROMO, context.getString(R.string.channel_promo_name), NotificationManager.IMPORTANCE_DEFAULT),
+                NotificationChannel(CHANNEL_AUTH, context.getString(R.string.channel_auth_name), NotificationManager.IMPORTANCE_HIGH),
+                NotificationChannel(CHANNEL_WEATHER, context.getString(R.string.channel_weather_name), NotificationManager.IMPORTANCE_HIGH),
+                NotificationChannel(CHANNEL_DEFAULT, context.getString(R.string.channel_default_name), NotificationManager.IMPORTANCE_DEFAULT)
             ).forEach { manager.createNotificationChannel(it) }
         }
     }

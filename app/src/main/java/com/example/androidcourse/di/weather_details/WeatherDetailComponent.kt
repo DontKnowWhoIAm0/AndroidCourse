@@ -9,7 +9,7 @@ import javax.inject.Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class CityName
 
-@Subcomponent(modules = [WeatherDetailModule::class])
+@Subcomponent
 interface WeatherDetailComponent {
 
     fun viewModel(): WeatherDetailViewModel

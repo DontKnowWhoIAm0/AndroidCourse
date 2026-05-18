@@ -1,5 +1,6 @@
 package com.example.androidcourse.service
 
+import com.example.androidcourse.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -30,16 +31,16 @@ class WeatherFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun defaultTitleForKind(kind: PushNotificationKind): String = when (kind) {
-        PushNotificationKind.PROMO -> "Специальное предложение"
-        PushNotificationKind.AUTH -> "Безопасность аккаунта"
-        PushNotificationKind.WEATHER_ALERT -> "Погодное предупреждение"
-        PushNotificationKind.UNKNOWN -> "Уведомление"
+        PushNotificationKind.PROMO -> getString(R.string.push_title_promo)
+        PushNotificationKind.AUTH -> getString(R.string.push_title_auth)
+        PushNotificationKind.WEATHER_ALERT -> getString(R.string.push_title_weather)
+        PushNotificationKind.UNKNOWN -> getString(R.string.push_title_unknown)
     }
 
     private fun defaultMessageForKind(kind: PushNotificationKind): String = when (kind) {
-        PushNotificationKind.PROMO -> "У нас есть что-то для вас!"
-        PushNotificationKind.AUTH -> "Выполнен вход в аккаунт"
-        PushNotificationKind.WEATHER_ALERT -> "Проверьте погоду в вашем городе"
-        PushNotificationKind.UNKNOWN -> "Новое сообщение"
+        PushNotificationKind.PROMO -> getString(R.string.push_message_promo)
+        PushNotificationKind.AUTH -> getString(R.string.push_message_auth)
+        PushNotificationKind.WEATHER_ALERT -> getString(R.string.push_message_weather)
+        PushNotificationKind.UNKNOWN -> getString(R.string.push_message_unknown)
     }
 }

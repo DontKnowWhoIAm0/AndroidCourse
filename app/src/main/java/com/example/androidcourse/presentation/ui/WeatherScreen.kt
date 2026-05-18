@@ -74,7 +74,7 @@ fun WeatherScreen(
             onClick = { throw RuntimeException("Test Crashlytics") },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Краш тест")
+            Text(stringResource(id = R.string.crash_test_button))
         }
 
         when(state) {
@@ -86,7 +86,7 @@ fun WeatherScreen(
                     onClick = { onCitySelected(state.result.weather.cityName) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Подробнее")
+                    Text(stringResource(id = R.string.details_button))
                 }
 
                 val sourceText = if (state.result.source == DataSource.REMOTE)

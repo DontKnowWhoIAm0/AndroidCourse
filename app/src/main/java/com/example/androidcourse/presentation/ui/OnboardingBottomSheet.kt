@@ -21,11 +21,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.androidcourse.R
 import com.example.androidcourse.utils.analytics.AnalyticsLogger
 
 @Composable
@@ -61,7 +63,7 @@ fun OnboardingBottomSheet(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Добро пожаловать в WeatherApp",
+                    text = stringResource(id = R.string.onboarding_title),
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -71,7 +73,7 @@ fun OnboardingBottomSheet(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Что умеет приложение:",
+                    text = stringResource(id = R.string.onboarding_features_header),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.fillMaxWidth()
@@ -80,10 +82,10 @@ fun OnboardingBottomSheet(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 listOf(
-                    "🌤" to "Поиск погоды по названию города",
-                    "💾" to "Кэширование — работает без интернета",
-                    "📋" to "Детальная информация о погоде",
-                    "🔔" to "Push-уведомления о погоде и акциях"
+                    "🌤" to stringResource(id = R.string.onboarding_feature_search),
+                    "💾" to stringResource(id = R.string.onboarding_feature_cache),
+                    "📋" to stringResource(id = R.string.onboarding_feature_details),
+                    "🔔" to stringResource(id = R.string.onboarding_feature_notifications)
                 ).forEach { (emoji, text) ->
                     Row(
                         modifier = Modifier
@@ -102,9 +104,7 @@ fun OnboardingBottomSheet(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Используя приложение, вы соглашаетесь с тем, " +
-                            "что данные о погоде предоставляются сервисом OpenWeatherMap " +
-                            "и могут незначительно отличаться от реальных.",
+                    text = stringResource(id = R.string.onboarding_disclaimer),
                     fontSize = 12.sp,
                     color = Color.Gray
                 )
@@ -118,7 +118,7 @@ fun OnboardingBottomSheet(
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Понятно, начать!")
+                    Text(stringResource(id = R.string.onboarding_button))
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
