@@ -1,5 +1,6 @@
 package com.example.androidcourse.service
 
+import android.util.Log
 import com.example.androidcourse.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -14,7 +15,7 @@ class WeatherFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-
+        Log.d("FCM_DEBUG", "kind = ${message.data["kind"]}")
         val data = message.data
         FirebaseCrashlytics.getInstance().log("Push received, data: $data")
 
