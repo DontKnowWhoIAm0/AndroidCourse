@@ -2,7 +2,7 @@ package com.example.androidcourse.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.androidcourse.utils.DbConstants
+import com.example.androidcourse.utils.database.DbConstants
 
 @Entity(tableName = DbConstants.WEATHER_TABLE)
 data class WeatherEntity(

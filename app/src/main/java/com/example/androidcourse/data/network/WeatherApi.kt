@@ -1,7 +1,7 @@
 package com.example.androidcourse.data.network
 
 import com.example.androidcourse.BuildConfig
-import com.example.androidcourse.utils.ApiParams
+import com.example.androidcourse.utils.network.ApiParams
 import retrofit2.http.GET
 import retrofit2.http.Query
 

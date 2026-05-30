@@ -36,11 +36,14 @@ import com.example.androidcourse.R
 import com.example.androidcourse.domain.model.Weather
 import com.example.androidcourse.presentation.viewmodel.WeatherState
 import com.example.androidcourse.presentation.viewmodel.WeatherViewModel
-import com.example.androidcourse.utils.ApiParams
-import com.example.androidcourse.utils.DataSource
+import com.example.androidcourse.utils.network.ApiParams
+import com.example.androidcourse.utils.database.DataSource
 
 @Composable
-fun WeatherScreen(viewModel: WeatherViewModel) {
+fun WeatherScreen(
+    viewModel: WeatherViewModel,
+    onCitySelected: (String) -> Unit = {}
+) {
     val context = LocalContext.current
 
     var city by remember { mutableStateOf("") }
@@ -67,10 +70,24 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        Button(
+            onClick = { throw RuntimeException("Test Crashlytics") },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(id = R.string.crash_test_button))
+        }
+
         when(state) {
             is WeatherState.Loading -> CircularProgressIndicator(modifier = Modifier.padding(top = 32.dp))
             is WeatherState.Success -> {
                 WeatherDetails(state.result.weather)
+
+                Button(
+                    onClick = { onCitySelected(state.result.weather.cityName) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(stringResource(id = R.string.details_button))
+                }
 
                 val sourceText = if (state.result.source == DataSource.REMOTE)
                     stringResource(id = R.string.data_received_remote)

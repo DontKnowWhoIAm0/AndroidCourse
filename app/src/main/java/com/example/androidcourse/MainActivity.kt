@@ -1,30 +1,32 @@
 package com.example.androidcourse
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.room.Room
-import com.example.androidcourse.data.local.WeatherDatabase
-import com.example.androidcourse.di.AppModule
-import com.example.androidcourse.presentation.ui.WeatherScreen
-import com.example.androidcourse.presentation.viewmodel.WeatherStringsImpl
-import com.example.androidcourse.presentation.viewmodel.WeatherViewModel
-import com.example.androidcourse.utils.DbConstants
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.androidcourse.presentation.navigation.AppNavigation
+
 
 class MainActivity : ComponentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val weatherStrings = WeatherStringsImpl(this)
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { }
 
-        val api = AppModule.provideWeatherApi()
-        val db = Room.databaseBuilder(applicationContext, WeatherDatabase::class.java, DbConstants.DB_NAME).fallbackToDestructiveMigration().build()
-        val repo = AppModule.provideWeatherRepository(api, db.weatherDao(), weatherStrings)
-        val useCase = AppModule.provideGetWeatherUseCase(repo)
-        val viewModel = WeatherViewModel(useCase, weatherStrings)
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        val appComponent = (application as WeatherApp).appComponent
+        appComponent.inject(this)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
 
         setContent {
-            WeatherScreen(viewModel)
+            AppNavigation(appComponent)
         }
     }
 }
+

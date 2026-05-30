@@ -8,8 +8,9 @@ import com.example.androidcourse.data.repository.WeatherStrings
 import com.example.androidcourse.utils.WeatherResult
 import com.example.androidcourse.domain.usecase.GetWeatherUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WeatherViewModel(
+class WeatherViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase,
     private val strings: WeatherStrings
 ) : ViewModel() {
