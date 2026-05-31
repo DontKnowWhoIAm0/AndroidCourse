@@ -7,11 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.androidcourse.data.repository.WeatherStrings
 import com.example.androidcourse.utils.WeatherResult
 import com.example.androidcourse.domain.usecase.GetWeatherUseCase
+import com.example.androidcourse.domain.usecase.ValidateCityUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class WeatherViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase,
+    private val validateCityUseCase: ValidateCityUseCase,
     private val strings: WeatherStrings
 ) : ViewModel() {
 
@@ -19,8 +21,8 @@ class WeatherViewModel @Inject constructor(
     val state: State<WeatherState> = _state
 
     fun fetchWeather(city: String) {
-        val cleanCity = city.trim().replace(Regex("[\\n\\t]"), "").lowercase()
-        if (cleanCity.isEmpty()) {
+        val cleanCity = validateCityUseCase(city)
+        if (cleanCity == null) {
             _state.value = WeatherState.Error(strings.enterCity)
             return
         }

@@ -3,6 +3,7 @@ package com.example.androidcourse.di.app
 import com.example.androidcourse.data.repository.WeatherRepositoryImpl
 import com.example.androidcourse.domain.repository.WeatherRepository
 import com.example.androidcourse.domain.usecase.GetWeatherUseCase
+import com.example.androidcourse.domain.usecase.ValidateCityUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -20,6 +21,12 @@ abstract class AppModule {
         @Singleton
         fun provideGetWeatherUseCase(repository: WeatherRepository): GetWeatherUseCase {
             return GetWeatherUseCase(repository)
+        }
+
+        @Provides
+        @Singleton
+        fun provideValidateCityUseCase(): ValidateCityUseCase {
+            return ValidateCityUseCase()
         }
     }
 }
